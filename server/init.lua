@@ -1,3 +1,4 @@
+_G.require = require;
 local http = require('http');
 local url = require('url');
 local fs = require('fs');

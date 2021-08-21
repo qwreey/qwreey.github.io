@@ -1,11 +1,8 @@
-/*Class*/
-.center {
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-}
+/*Tags*/
 * {
+  font-family: 'Noto Sans KR', sans-serif;
   color: #fff;
+  font-size: 16px;
 }
 div {
   left: 0px;
@@ -13,9 +10,25 @@ div {
   right: 0px;
   bottom: 0px;
 }
-pre {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 0.8em;
+body {
+  overflow-x: hidden;
+}
+p {
+  margin: 0px 0px 0px 0px;
+}
+
+/*Class*/
+.center {
+  transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px));
+  top: 50%;
+  left: 50%;
+}
+.window {
+  backdrop-filter: blur(22px);
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.9);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.13);
 }
 
 /*Background*/
@@ -35,10 +48,7 @@ body::before {
   top: 50%;
   left: 50%;
 }
-body {
-  overflow: hidden;
-}
-#bgDim {
+#background {
   background: radial-gradient(
     rgba(0, 0, 0, 0.21),
     rgba(0,0,0,0.32),
@@ -47,46 +57,71 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  /*align-items: center;*/
 }
-#bgSorce {
+#bglink {
   position: absolute;
   transform: translate(-100%, -100%);
   top: 100%;
   left: 100%;
-  height: 20px;
-  width: 180px;
+  height: 18px;
+  width: 150px;
   opacity: 0.6;
-  font-size: 0.6em;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 10px;
+  right: 2px;
+  text-align: right;
+}
+#copyright {
+  position: absolute;
+  transform: translate(-0%, -100%);
+  top: 100%;
+  font-size: 10px;
+  opacity: 0.6;
+  height: 18px;
+  width: auto;
+  left: 2px;
 }
 
 /*Page Holder*/
-.page {
-  backdrop-filter: blur(20px);
-  background-color: rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.9);
-  position: absolute;
-  max-width: 680px;
+#page {
+  max-width: 560px;
+  margin-top: 19px;
   width: calc(100% - 38px);
   height: calc(100% - 38px);
 }
 
 /*Page titlebar*/
-.title {
-  height: 32px;
+.titlebar {
+  font-size: 18px;
+  height: 38px;
   width: 100%;
   display: flex;
   align-items: center;
 }
-
-.title > a {
+.titlebar > p {
   margin-left: 10px;
   font-size: 1em;
   font-family: 'Noto Sans KR', sans-serif;
   color: #fff;
 }
 
-/*Page main*/
-#mainHolder {
+/*Page holder*/
+.holder {
+  padding: 0px 16px 0px 16px;
+}
 
+/*Menu Main*/
+#menu {
+  margin-top: 19px;
+  width: 200px;
+  min-height: 320px;
+  height: calc(50%);
+  margin-right: 18px;
+}
+@media only screen and (max-width: 790px), (max-height: 350px) {
+  #menu {
+    display: none;
+  }
 }
