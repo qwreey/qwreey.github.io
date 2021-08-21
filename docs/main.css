@@ -1,0 +1,92 @@
+/*Class*/
+.center {
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+* {
+  color: #fff;
+}
+div {
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+pre {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.8em;
+}
+
+/*Background*/
+body::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  min-width: 1920px;
+  right: 0px;
+  bottom: 0px;
+  background-size: 100%;
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+body {
+  overflow: hidden;
+}
+#bgDim {
+  background: radial-gradient(
+    rgba(0, 0, 0, 0.21),
+    rgba(0,0,0,0.32),
+    rgba(0,0,0,0.48)
+  );
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+#bgSorce {
+  position: absolute;
+  transform: translate(-100%, -100%);
+  top: 100%;
+  left: 100%;
+  height: 20px;
+  width: 180px;
+  opacity: 0.6;
+  font-size: 0.6em;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/*Page Holder*/
+.page {
+  backdrop-filter: blur(20px);
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.9);
+  position: absolute;
+  max-width: 680px;
+  width: calc(100% - 38px);
+  height: calc(100% - 38px);
+}
+
+/*Page titlebar*/
+.title {
+  height: 32px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.title > a {
+  margin-left: 10px;
+  font-size: 1em;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #fff;
+}
+
+/*Page main*/
+#mainHolder {
+
+}
