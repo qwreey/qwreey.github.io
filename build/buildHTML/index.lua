@@ -49,10 +49,38 @@ function module.build(content,env)
         local passed,callback = pcall(require,futils.concatPath(module.dir,this:match("^[^|]"):gsub("%.","/")));
         if passed then
             local typeOfCallback = type(callback);
+            local arg = this:match("^[^|]+|(.+)");
             if typeOfCallback == "string" then
                 return callback;
+            end
+            -- it will allows call modules item and index items
+            -- such : {#:test.module|.method("call!");:#}
+            --        {#:path.tofile|.index.like.table:#}
+            local passed2,fn = pcall(loadstring,"return this" .. (arg or ""));
+            if passed2 then
+                setfenv(fn,setmetatable(
+                    {
+                        env = env;
+                        arg = arg;
+                        this = callback;
+                    },{
+                        __index = _G;
+                        __newindex = _G
+                    }
+                ));
+                local passed3,result = fn();
+                if not pasesd3 then
+                    return ("<pre>Lua:An error occur on calling module\nerror was . . .\n%s</pre>")
+                        :format(result);
+                end
+                return result;
             else
-                
+                return ("<pre>Lua:An error occur on parsing module caller\nerror was . . .\n%s</pre>")
+                    :format(fn);
+            end
+            -- else typeOfCallBack == "function" then
+            --     callback(env,arg);
+            -- elseif typeOfCallBack == "table" then
             end
         end
 
