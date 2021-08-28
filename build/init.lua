@@ -3,7 +3,7 @@ local futils = require("build.futils");
 local concatPath = futils.concatPath;
 
 local buildMd = require("build.buildMd");
-local 
+local buildHTML = require("build.buildHTML");
 
 local fs = require("fs");
 local prettyPrint = require("pretty-print");
@@ -53,7 +53,8 @@ local buildTypes = {
     ["html"] = function (o)
         local this = fs.readFileSync(o.from);
         if not this:match("<!--DO NOT BUILD-->") then
-            this = 
+            -- call the html builder (custom html var)
+            this = buildHTML.build(this);
         end
         fs.writeFileSync(this);
     end;

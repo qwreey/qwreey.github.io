@@ -1,3 +1,19 @@
+# Writen by qwreey
+# on Aub 29th 2021
+#
+# gole of this code :
+# building markdown to html
+# with pymarkdown's tabbed,
+# emoji, footnode extensions
+#
+# it will called by lua (lua node)
+#
+# uses:
+# give json array that includes what you want
+# to build, the childrens are has 2 values
+# first one, has 'from' index, it will be markdown file
+# the last, secound one, has 'to' index, it will be target(output) file (html)
+
 import markdown
 import sys
 import json
