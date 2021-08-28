@@ -4,6 +4,7 @@ local concatPath = futils.concatPath;
 
 local buildMd = require("build.buildMd");
 local buildHTML = require("build.buildHTML");
+local env = require("env")
 
 local fs = require("fs");
 local prettyPrint = require("pretty-print");
@@ -54,7 +55,11 @@ local buildTypes = {
         local this = fs.readFileSync(o.from);
         if not this:match("<!--DO NOT BUILD-->") then
             -- call the html builder (custom html var)
-            this = buildHTML.build(this);
+            local thisEnv = {
+                from = o.from;
+                to = o.to;
+            };
+            this = buildHTML.build(this,setmetatable(thisEnv,{__index = env,__newindex = env}));
         end
         fs.writeFileSync(this);
     end;
