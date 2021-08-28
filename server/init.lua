@@ -52,6 +52,6 @@ http.createServer(function(req, res)
 
         fs.createReadStream(path):pipe(res);
     end);
-end):listen(8080);
+end):listen(25565);
 
 io.write "Http static file server listening at http://localhost:8080/\n";

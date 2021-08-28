@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>꺄비월드 - {#:Page.Title:#}</title>
+    <title>{#:Owner.Name:#}월드 - {#:Page.Title:#}</title>
 
     <!--import google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,29 +13,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
 
     <!--import main css-->
-    <link href="main.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/main.css">
+    <link rel="stylesheet" href="stylesheets/mkdocs.css">
+    <link rel="stylesheet" href="stylesheets/mkdocs.palette.css">
+    <link rel="stylesheet" href="stylesheets/mkdocs.extra.css">
   </head>
   <body>
     <div id="background">
-      <div id="menu" class="window">
-        <div class="titlebar">
-          <p>꺄비의 웹사이트!</p>
-        </div>
-        <div class="holder">
-          <p class="description">사이트맵!</p>
+      <!--menu holder-->
+      <div id="floatingMenu">
+        <div id="floatingMenuSitemap" class="window">
+          <div class="titlebar">
+            <p>{#:Owner.Name:#}의 웹사이트!</p>
+          </div>
+          <div class="holder">
+            <p class="description">사이트맵!</p>
 {#:SiteMap:#}
+          </div>
+        </div>
+        <div id="floatingMenuLinks" class="window">
+{#:Links:#}
         </div>
       </div>
+      <!--main contents-->
       <div id="page" class="window">
         <div class="titlebar">
           <p>{#:Page.Title:#}}</p>
         </div>
         <div class="holder">
+          <article class="md-content__inner md-typeset">
 {#:Page.Content:#}
+          </article>
         </div>
       </div>
     </div>
-    <a id="copyright">Copyright 2021. Qwreey. All right of this site reserved</a>
+    <!--footer texts-->
+    <a id="copyright">Copyright 2021. {#:Owner.EngName:#}. All right of this site reserved</a>
     <a id="bglink" href="https://www.piqsels.com/en/public-domain-photo-fradv">Sorce of background image</a>
   </body>
 </html>

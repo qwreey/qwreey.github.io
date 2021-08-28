@@ -1,7 +1,7 @@
 --[[
 module name :: File Utils
 --]]
-local fs = fs or require("fs");
+local fs = require("fs");
 local module = {};
 
 --[[
@@ -24,14 +24,14 @@ function module.scan(path)
         local status = fs.statSync(path .. "/" .. child);
         local type = status.type;
         table.insert(items,{
-            isFolder = type == "folder";
+            isFolder = type == "directory";
             name = child;
         });
     end
     return items;
 end
 function module.getExt(path)
-    return path:match("%..+$");
+    return path:match("%.(.+)$");
 end
 
 return module;
