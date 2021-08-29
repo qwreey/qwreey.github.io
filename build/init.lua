@@ -7,6 +7,7 @@ local buildHTML = require("build.buildHTML");
 local env = require("env")
 
 local fs = require("fs");
+local json = require("json");
 local prettyPrint = require("pretty-print");
 local p = prettyPrint.prettyPrint; _G.p = p;
 
@@ -83,13 +84,15 @@ local buildTypes_html = buildTypes["html"];
 ---@param items table 재귀할 아이템이 담긴 테이블, from과 to 쌍으로 이룬다
 ---@param tmp any 빌드에 사용될 템프 폴더
 ---@param tmpIndex number 사용하지 마세요 (재귀 전달) - 템프파일 아이드를 자식 재귀로 넘겨줌
-local function buildItems(items,tmp,tmpIndex)
+local function buildItems(items,tmp,root,tmpIndex)
     futils.mkpath(tmp);
     local dat = {
         tmpIndex = tmpIndex or 0;
         tmp = tmp;
         mdbuilds = {};
         rebuild = {};
+        root = root;
+        sitemap = concatPath(root,"sitemap.json");
     };
     for _,item in pairs(items) do
         local from = item.from;
@@ -114,4 +117,21 @@ local function buildItems(items,tmp,tmpIndex)
     end
 end
 
-buildItems(scan("src","docs"),"build/tmp");
+local function cleanupLastBuild(root)
+    local path = concatPath(root,"sitemap.json");
+    local raw = fs.readFileSync(path);
+    if not raw then
+        return;
+    end
+
+    local last = json.decode(raw);
+    if not last then
+        return;
+    end
+    for i,v in pairs(last) do
+        os.remove(v);
+    end
+    fs.writeFileSync(path,"");
+end
+
+buildItems(scan("src","docs"),"build/tmp","docs");

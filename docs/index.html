@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>{#:Owner.Name:#}월드 - {#:Page.Title:#}</title>
+    <title>꺄비월드 - <pre>LUA:UNDEFIND:'page.title'</pre></title>
 
     <!--import google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,42 +13,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
 
     <!--import main css-->
-    <link rel="stylesheet" href="stylesheets/main.css">
-    <link rel="stylesheet" href="stylesheets/mkdocs.css">
     <link rel="stylesheet" href="stylesheets/mkdocs.palette.css">
+    <link rel="stylesheet" href="stylesheets/mkdocs.css">
     <link rel="stylesheet" href="stylesheets/mkdocs.extra.css">
+    <link rel="stylesheet" href="stylesheets/main.css">
   </head>
-  <body itemtype="http://schema.org/WebPage">
+  <body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
     <div id="background">
       <!--menu holder-->
       <div id="floatingMenu">
         <div id="floatingMenuSitemap" class="window">
           <div class="titlebar">
-            <p>{#:Owner.Name:#}의 웹사이트!</p>
+            <p>꺄비의 웹사이트!</p>
           </div>
-          <div class="holder">
+          <div class="holder scrollY">
             <p class="description">사이트맵!</p>
-{#:SiteMap:#}
+asdfasdfsf
           </div>
         </div>
         <div id="floatingMenuLinks" class="window">
-{#:Links:#}
+<div id="linkspace">
+<div id="linkspace_github">
+
+</div>
+</div>
+<style>
+#linkspace {
+}
+</style>
+
         </div>
       </div>
       <!--main contents-->
       <div id="page" class="window">
         <div class="titlebar">
-          <p>{#:Page.Title:#}}</p>
+          <p><pre>LUA:UNDEFIND:'page.title'</pre></p>
         </div>
-        <div class="holder">
+        <div class="holder scrollY">
           <article class="md-content__inner md-typeset">
-{#:Page.Content:#}
+
+<!--start of page contents-->
+<pre>
+  YEAHHHHHHHHHHHHHHHHHHHHHHHHH
+  IT WORKING
+</pre>
+<!--end of page contents-->
+
           </article>
         </div>
       </div>
     </div>
     <!--footer texts-->
-    <a id="copyright">Copyright 2021. {#:Owner.EngName:#}. All right of this site reserved</a>
+    <a id="copyright">Copyright 2021. qwreey. All right of this site reserved</a>
     <a id="bglink" href="https://www.piqsels.com/en/public-domain-photo-fradv">Sorce of background image</a>
   </body>
 </html>

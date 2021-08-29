@@ -29,9 +29,6 @@
           <div class="holder scrollY">
             <p class="description">사이트맵!</p>
 {#:sitemap|.mapbuild():#}
-{#:lua:
-  return env.page.title  
-:#}
           </div>
         </div>
         <div id="floatingMenuLinks" class="window">
@@ -45,7 +42,11 @@
         </div>
         <div class="holder scrollY">
           <article class="md-content__inner md-typeset">
+
+<!--start of page contents-->
 {#:page.content:#}
+<!--end of page contents-->
+
           </article>
         </div>
       </div>
