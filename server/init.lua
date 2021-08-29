@@ -30,6 +30,8 @@ http.createServer(function(req, res)
         local pathName = req.uri.pathname;
         if pathName == "/" then
             pathName = "/index.html";
+        elseif not pathName:match("%.[^/]+$") then
+            pathName = pathName .. ".html";
         end
         path = root .. pathName;
     end
@@ -52,6 +54,6 @@ http.createServer(function(req, res)
 
         fs.createReadStream(path):pipe(res);
     end);
-end):listen(25565);
+end):listen(8080);
 
 io.write "Http static file server listening at http://localhost:8080/\n";

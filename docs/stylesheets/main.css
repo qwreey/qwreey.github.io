@@ -1,6 +1,6 @@
 /*Tags*/
 * {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   color: #fff;
   font-size: 16px;
 }
@@ -11,8 +11,9 @@ div {
   bottom: 0px;
 }
 body {
-  background: #171717 url('background.jpg') no-repeat center center fixed;
+  background: #171717 url("../background.jpg") no-repeat center center fixed;
   background-size: cover;
+  margin: 0px 0px 0px 0px;
 }
 p {
   margin: 0px 0px 0px 0px;
@@ -23,8 +24,8 @@ svg text {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  -khtml-user-select:none;
-  -o-user-select:none;
+  -khtml-user-select: none;
+  -o-user-select: none;
   user-select: none;
 }
 
@@ -37,21 +38,23 @@ svg text {
 .window {
   backdrop-filter: blur(22px);
   background-color: rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.9);
+  box-shadow: 0px 0px 28px -4px rgba(0, 0, 0, 0.9);
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.13);
+  border: 1px solid rgba(255, 255, 255, 0.13);
 }
-.titlebar { /*titlebar*/
-  font-size: 18px;
+.titlebar {
+  /*titlebar*/
+  font-size: 13px;
   height: 38px;
   width: 100%;
   display: flex;
   align-items: center;
 }
-.titlebar > p { /*titlebar text*/
+.titlebar > p {
+  /*titlebar text*/
   margin-left: 10px;
   font-size: 1em;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   color: #fff;
 }
 
@@ -59,8 +62,8 @@ svg text {
 #background {
   background: radial-gradient(
     rgba(0, 0, 0, 0.21),
-    rgba(0,0,0,0.32),
-    rgba(0,0,0,0.48)
+    rgba(0, 0, 0, 0.32),
+    rgba(0, 0, 0, 0.48)
   );
   position: absolute;
   height: 100%;
@@ -99,8 +102,38 @@ svg text {
   width: calc(100% - 38px);
   height: calc(100% - 38px);
 }
-.holder { /*content holder*/
-  padding: 0px 16px 0px 16px;
+.holder {
+  /*content holder*/
+  height: calc(100% - 38px - 6px);
+  width: auto;
+  margin-right: 6px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/*custom scroll*/
+.scrollY {
+  overflow-y: scroll;
+}
+.scrollY::-webkit-scrollbar { /* total width */
+  background-color:transparent;
+  width:6px;
+}
+.scrollY::-webkit-scrollbar-track { /* scrollbar background */
+  background-color:transparent;
+}
+.scrollY::-webkit-scrollbar-track:hover {
+  background-color:transparent;
+}
+.scrollY::-webkit-scrollbar-thumb { /* scrollbar itself */
+  background-color:#babac073;
+  border-radius:16px;
+}
+.scrollY::-webkit-scrollbar-thumb:hover {
+  background-color:#a0a0a58e;
+}
+.scrollY::-webkit-scrollbar-button { /* scroll button */
+  display:none
 }
 
 /*Menu Main*/

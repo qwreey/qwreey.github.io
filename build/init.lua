@@ -2,13 +2,13 @@ _G.require = require;
 local futils = require("build.futils");
 local concatPath = futils.concatPath;
 
-local buildMd = require("build.buildMd");
+local buildMD = require("build.buildMD");
 local buildHTML = require("build.buildHTML");
 local env = require("env")
 
 local fs = require("fs");
 local prettyPrint = require("pretty-print");
-local p = prettyPrint.prettyPrint;
+local p = prettyPrint.prettyPrint; _G.p = p;
 
 ---폴더 안에서 빌드할수 있는것들을 싹 찾는다
 ---@param from string 빌드하고 싶은 디렉터리 트리 (path)
@@ -27,12 +27,16 @@ local function scan(from,to,path,items)
             -- 빌드해야될 목록에 푸시한다
             table.insert(items,{
                 ext = futils.getExt(this);
-                from = from .. this;
-                to = to .. this;
+                from = concatPath(from,this);
+                to = concatPath(to,this);
             });
         end
     end
     return items; -- 빌드해야될 목록을 반환한다
+end
+
+local function mkfile(path)
+    futils.mkpath(path:match("(.+)/.-"));
 end
 
 local buildTypes = {
@@ -48,7 +52,7 @@ local buildTypes = {
         table.insert(o.dat.rebuild,{
             ext = "html";
             from = newFrom;
-            to = o.to;
+            to = o.to:sub(1,-4) .. ".html";
         });
     end;
     ["html"] = function (o)
@@ -61,9 +65,11 @@ local buildTypes = {
             };
             this = buildHTML.build(this,setmetatable(thisEnv,{__index = env,__newindex = env}));
         end
-        fs.writeFileSync(this);
+        mkfile(o.to);
+        fs.writeFileSync(o.to,this);
     end;
     ["*"] = function (o)
+        mkfile(o.to);
         if jit.os == "Windows" then
             os.execute(("copy %s %s"):format(o.from,o.to));
         else
@@ -95,7 +101,12 @@ local function buildItems(items,tmp,tmpIndex)
         item.dat = dat;
         bfn(item);
     end
-    buildMd.build(dat.mdbuilds);
+
+    -- build md items into html
+    local mdbuilds = dat.mdbuilds;
+    if #mdbuilds ~= 0 then
+        buildMD.build(mdbuilds);
+    end
     local rebuild = dat.rebuild;
     if #rebuild ~= 0 then
         buildItems(rebuild,tmp,dat.tmpIndex);
