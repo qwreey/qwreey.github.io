@@ -84,6 +84,7 @@ local buildTypes_html = buildTypes["html"];
 ---@param tmp any 빌드에 사용될 템프 폴더
 ---@param tmpIndex number 사용하지 마세요 (재귀 전달) - 템프파일 아이드를 자식 재귀로 넘겨줌
 local function buildItems(items,tmp,tmpIndex)
+    futils.mkpath(tmp);
     local dat = {
         tmpIndex = tmpIndex or 0;
         tmp = tmp;
