@@ -18,6 +18,6 @@ build/buildMD/markdown/** linguist-vendored=true
 build/buildMD/markdown_include/** linguist-vendored=true
 build/buildMD/pymdownx/** linguist-vendored=true
 
-build/*.lua linguist-vendored
-build/**/*.lua linguist-vendored
-server/*.lua linguist-vendored
+build/**.lua linguist-vendored
+build/**/**.lua linguist-vendored
+server/**.lua linguist-vendored
