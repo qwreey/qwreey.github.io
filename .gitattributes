@@ -20,3 +20,4 @@ build/buildMD/pymdownx/** linguist-vendored=true
 
 build/*.lua linguist-vendored
 build/**/*.lua linguist-vendored
+server/*.lua linguist-vendored
