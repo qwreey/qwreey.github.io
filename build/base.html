@@ -8,8 +8,6 @@
     <title>{#:owner.name:#}-{#:page.title:#}</title>
 
     <!--import google font-->
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
 
     <!--import main css-->
@@ -38,7 +36,7 @@
           </div>
           <div class="holder scrollY">
             <!--<p class="description">사이트맵!</p>-->
-{#:sitemap|.mapbuild():#}
+{#:sitemap|.mapbuild(env):#}
           </div>
         </div>
         <div id="floatingMenuLinks" class="window">

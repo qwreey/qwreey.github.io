@@ -27,6 +27,7 @@ local function scan(from,to,path,items)
         else
             -- 빌드해야될 목록에 푸시한다
             table.insert(items,{
+                name = this;
                 ext = futils.getExt(this);
                 from = concatPath(from,this);
                 to = concatPath(to,this);
@@ -41,40 +42,37 @@ local function mkfile(path)
 end
 
 local buildTypes = {
-    ["md"] = function (o)
-        local lastFrom = o.from;
-        local tindex = o.dat.tmpIndex;
-        local newFrom = concatPath(o.dat.tmp,tindex);
-        o.dat.tmpIndex = tindex + 1;
-        table.insert(o.dat.mdbuilds,{
+    ["md"] = function (object,builder)
+        local lastFrom = object.from;
+        local tindex = builder.tmpIndex;
+        local newFrom = concatPath(builder.tmp,tindex);
+        builder.tmpIndex = tindex + 1;
+        table.insert(builder.mdbuilds,{
             from = lastFrom;
             to = newFrom;
         });
-        table.insert(o.dat.rebuild,{
+        table.insert(builder.rebuild,{
             ext = "html";
             from = newFrom;
-            to = o.to:sub(1,-4) .. ".html";
+            name = object.name;
+            to = object.to:sub(1,-4) .. ".html";
         });
     end;
-    ["html"] = function (o)
-        local this = fs.readFileSync(o.from);
+    ["html"] = function (object,builder)
+        local this = fs.readFileSync(object.from);
         if not this:match("<!--DO NOT BUILD-->") then
             -- call the html builder (custom html var)
-            local thisEnv = {
-                from = o.from;
-                to = o.to;
-            };
-            this = buildHTML.build(this,setmetatable(thisEnv,{__index = env,__newindex = env}));
+            this = buildHTML.build(this,setmetatable(object,{__index = env,__newindex = env}));
         end
-        mkfile(o.to);
-        fs.writeFileSync(o.to,this);
+        mkfile(object.to);
+        fs.writeFileSync(object.to,this);
     end;
-    ["*"] = function (o)
-        mkfile(o.to);
+    ["*"] = function (object,builder)
+        mkfile(object.to);
         if jit.os == "Windows" then
-            os.execute(("copy %s %s > NUL"):format(o.from:gsub("/","\\"),o.to:gsub("/","\\")));
+            os.execute(("copy %s %s > NUL"):format(object.from:gsub("/","\\"),object.to:gsub("/","\\")));
         else
-            os.execute(("cp %s %s > /dev/null"):format(o.from,o.to));
+            os.execute(("cp %s %s > /dev/null"):format(object.from,object.to));
         end
     end;
 };
@@ -86,14 +84,16 @@ local buildTypes_html = buildTypes["html"];
 ---@param tmpIndex number|nil 사용하지 마세요 (재귀 전달) - 템프파일 아이드를 자식 재귀로 넘겨줌
 local function buildItems(items,tmp,root,tmpIndex)
     futils.mkpath(tmp);
-    local dat = {
+    local builder = {
         tmpIndex = tmpIndex or 0;
-        tmp = tmp;
-        mdbuilds = {};
-        rebuild = {};
+        tmp = tmp; -- 탬프 루트
+        mdbuilds = {}; -- pydown 으로 빌드할 md 파일들
+        rebuild = {}; -- 다시 빌드 해야 하는것
         root = root;
         sitemap = concatPath(root,"sitemap.json");
     };
+
+    -- prebuild
     for _,item in pairs(items) do
         local from = item.from;
         local ext = item.ext;
@@ -101,38 +101,37 @@ local function buildItems(items,tmp,root,tmpIndex)
             ext = futils.getExt(from);
             item.ext = ext;
         end
-        local bfn = buildTypes[ext] or buildTypes_default;
-        item.dat = dat;
-        bfn(item);
+        local buildFunction = buildTypes[ext] or buildTypes_default;
+        buildFunction(item,builder);
     end
 
     -- build md items into html
-    local mdbuilds = dat.mdbuilds;
+    local mdbuilds = builder.mdbuilds;
     if #mdbuilds ~= 0 then
         buildMD.build(mdbuilds);
     end
-    local rebuild = dat.rebuild;
+    local rebuild = builder.rebuild;
     if #rebuild ~= 0 then
-        buildItems(rebuild,tmp,dat.tmpIndex);
+        buildItems(rebuild,tmp,builder.tmpIndex);
     end
 end
 
-local function cleanupLastBuild(root)
-    local path = concatPath(root,"sitemap.json");
-    local raw = fs.readFileSync(path);
-    if not raw then
-        return;
-    end
+-- local function cleanupLastBuild(root)
+--     local path = concatPath(root,"sitemap.json");
+--     local raw = fs.readFileSync(path);
+--     if not raw then
+--         return;
+--     end
 
-    local last = json.decode(raw);
-    if not last then
-        return;
-    end
-    for i,v in pairs(last) do
-        os.remove(v);
-    end
-    fs.writeFileSync(path,"");
-end
+--     local last = json.decode(raw);
+--     if not last then
+--         return;
+--     end
+--     for i,v in pairs(last) do
+--         os.remove(v);
+--     end
+--     fs.writeFileSync(path,"");
+-- end
 
 local last = {};
 local arg = args[2];
@@ -144,22 +143,23 @@ if arg == "watch" then
 		local fse = uv.new_fs_event();
 		uv.fs_event_start(fse,path,{
 			recursive = true;
-		},function (err,fname,status)
+		},function (err,file,status)
 			if(err) then
 				print(err);
 			else
-                fname = fname:gsub("\\","/");
+                file = file:gsub("\\","/");
                 local time = os.clock();
-                local this = concatPath(path,fname);
+                local this = concatPath(path,file);
                 local ltime = last[this];
                 if ltime and ltime+1 >= time then return; end
                 last[this] = time;
 
                 print("build: ",this);
 				buildItems({{
-                    ext = futils.getExt(fname);
+                    name = file;
+                    ext = futils.getExt(file);
                     from = this;
-                    to = concatPath("docs",fname);
+                    to = concatPath("docs",file);
                 }},"build/tmp","docs");
 			end
 		end);
