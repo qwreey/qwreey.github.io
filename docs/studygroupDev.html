@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--some settings-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>쿼리-진짜 개발시작?</title>
+
+    <!--import google font-->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
+
+    <!--import main css-->
+    <link rel="stylesheet" href="stylesheets/mkdocs.palette.css">
+    <link rel="stylesheet" href="stylesheets/mkdocs.css">
+    <link rel="stylesheet" href="stylesheets/mkdocs.extra.css">
+    <link rel="stylesheet" href="stylesheets/main.css">
+    <script>
+      document.addEventListener("DOMContentLoaded", function(event) { 
+          var scrollpos = localStorage.getItem('scrollpos');
+          if (scrollpos) document.querySelector("#page .holder").scrollTo(0, scrollpos);
+      });
+
+      window.onbeforeunload = function(e) {
+          localStorage.setItem('scrollpos', document.querySelector("#page .holder").scrollTop);
+      };
+  </script>
+  </head>
+  <body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+    <div id="background">
+      <!--menu holder-->
+      <div id="floatingMenu">
+        <div id="floatingMenuSitemap" class="window">
+          <div class="titlebar">
+            <p>쿼리 - DevLog</p>
+          </div>
+          <div class="holder scrollY">
+            <!--<p class="description">사이트맵!</p>-->
+여긴 아직 공사중
+          </div>
+        </div>
+        <div id="floatingMenuLinks" class="window">
+<div id="linkspace">
+<div id="linkspace_github">
+
+</div>
+</div>
+<style>
+#linkspace {
+}
+</style>
+
+        </div>
+      </div>
+      <!--main contents-->
+      <div id="page" class="window">
+        <div class="titlebar">
+          <p>진짜 개발시작?</p>
+        </div>
+        <div class="holder scrollY">
+          <article class="md-content__inner md-typeset">
+
+<!--start of page contents-->
+<!--META:title:진짜 개발시작?-->
+<h1 id="_1">이제 노가다<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">서론<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>electron 을 쓰겠다 했는데 이게 웹에 들어가는 html 이랑 css 그리고 js 를 이용해서 앱을 만들 수 있게 해줌.
+<br><br>
+우선 이 HTML, CSS, JS 가 뭐냐  </p>
+<blockquote>
+<ul>
+<li>HTML 은 <code>문서의 순서나, 불러올 파일들(사진,코드 등)</code>을 넣거나 글자를 넣는등의 <code>기본적 배치</code>를 하는데 쓰임  </li>
+<li>css 는 스타일 시트라고 해서 글자의 크기, 색깔, 폰트, 더 나아가 애니메이션(예는 우리가 지금 필요없음), 즉 스타일적 부분을 넣어주는데 쓰임  </li>
+<li>js(javascript) 는 글자를 바꾸거나, 내가 만든 샘플 프로그램 처럼 데이터를 가져오거나, 화면에 표시되는걸 바꿔주거나 하는데 쓰이는 프로그래밍 언어, 근데 예는 만들려고 하는거 마다 필요한게 달라서 사람마다 다 따로 설명해줄 예정  </li>
+</ul>
+</blockquote>
+<p>그래서 대충 만드는데 필요한건 3가지 정도가 됨</p>
+<h2 id="html">HTML<a class="headerlink" href="#html" title="Permanent link">&para;</a></h2>
+<p>일단 HTML 은 아주 간단함. 그냥 태그들로 데이터를 묶어주는것임, 예시를 보여주자면
+<br>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="cm">&lt;!--이건 코멘트, 실제로 안보임--&gt;</span>
+<span class="p">&lt;</span><span class="nt">i</span><span class="p">&gt;</span>기울임 글자<span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+</code></pre></div>
+</td></tr></table></p>
+<blockquote>
+<p><strong>결과</strong><br>
+<i>기울임 글자</i>  </p>
+</blockquote>
+<p>요렇게  넣어주면 됨, 보면 태그는 모두 <code>&lt;&gt;</code> 요거로 감싸져있고, 시작한 태그는 <code>/</code> 가 없고 끝 태그에는 <code>/</code> 가 있는걸 볼 수 있음, 이게 html 문법.</p>
+<hr>
+<p>그리고 이 태그 안에는 더 상세한 정보를 담아줄 수도 있음, (예: 글자 크기)
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="cm">&lt;!--p 는 글자 넣는 테그--&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;font-size:24px&quot;</span><span class="p">&gt;</span>큰 글자<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+</td></tr></table>
+<em>스포일러 하자면 여기 style 이게 나중에 스타일시트가 될 예정</em>  </p>
+<blockquote>
+<p><strong>결과</strong>
+<p style="font-size:24px">큰 글자</p>  </p>
+</blockquote>
+<hr>
+<p>이게 문법 끝! 다른 문법이 있다면 <code>&lt;img&gt;&lt;/img&gt;</code> 이렇게 여는태그/닫는태그 안에 다른 데이터를 안 넣어도 되는경우 <code>&lt;img/&gt;</code> 이렇게 줄여 쓴다는것 빼고는 없음
+<br><br>
+그럼 태그의 종류는 뭐뭐가 있냐가 중요한데, 상당히 많은 종류의 태그가 있기는 하지만 우리가 만들려 하는건 딱히 많은것을 필요로 하지는 않음  </p>
+<p>샘플 프로그램의 경우 &lt;html&gt;,&lt;title&gt;,&lt;body&gt;,&lt;div&gt;,&lt;p&gt;,&lt;script&gt;,&lt;img&gt; 딱 요만큼 들어갔음
+<br><br>
+우선 코드 파일을 만들기 위해서 vscode 로 아무런 폴더를 열고(바탕화면에 폴더 하나 만들고 우클릭, vscode 로 열기)<br>
+<img alt="image" src="./image/studygroup/openWithVscode.png">  </p>
+<p>그런 다음 옆 탐색기 창에 새 파일 클릭<br>
+<img alt="image" src="./image/studygroup/vscodeNewfile.png">  </p>
+<p>파일 이름은 <code>index.html</code> 으로 하고 만들고 열어 보면 이제 html 코드를 만들 수 있음<br>
+간단히 <code>!</code> 누른다음 탭키를 눌러주면 HTML 템플릿이 나오게 될 것임<br>
+<img alt="image" src="./image/studygroup/htmlTemplate.png">  </p>
+<p>이제 여기서 맨 윗줄 DOCTYPE html 저건 그냥 이 문서가 html 문서이다 하고 알려주는 부분이고 모든 html 데이터는 html 태그 안에 담기게 될것임, head 안에 담긴것 같은 경우 사이트의 이름(탭 이름에 표시될 이름), 가져올 스타일시트 파일, 사이트 설정과 같은 배치와 무관한 애들이 들어가고 body 안에 담기는 애들이 실제 우리 눈에 보이게 될 것임
+<br><br>
+대충 body 안에 쓰고싶은 글을 쓰고 파일탐색기에서 우클릭-연결프로그램-크롬 해서 열어보면 쓴 내용이 나옴
+<img alt="image" src="./image/studygroup/chrome.png">  </p>
+<!--end of page contents-->
+
+          </article>
+        </div>
+      </div>
+    </div>
+    <!--footer texts-->
+    <a id="copyright">Copyright 2021. qwreey. All right of this site reserved</a>
+    <a id="bglink" href="https://www.piqsels.com/en/public-domain-photo-fradv">Sorce of background image</a>
+  </body>
+</html>

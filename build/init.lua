@@ -72,9 +72,9 @@ local buildTypes = {
     ["*"] = function (o)
         mkfile(o.to);
         if jit.os == "Windows" then
-            os.execute(("copy %s %s"):format(o.from,o.to));
+            os.execute(("copy %s %s > NUL"):format(o.from:gsub("/","\\"),o.to:gsub("/","\\")));
         else
-            os.execute(("cp %s %s"):format(o.from,o.to));
+            os.execute(("cp %s %s > /dev/null"):format(o.from,o.to));
         end
     end;
 };
@@ -83,7 +83,7 @@ local buildTypes_html = buildTypes["html"];
 ---받은 테이블 쌍을 빌드한다, 역시나 재귀가 사용되는 함수
 ---@param items table 재귀할 아이템이 담긴 테이블, from과 to 쌍으로 이룬다
 ---@param tmp any 빌드에 사용될 템프 폴더
----@param tmpIndex number 사용하지 마세요 (재귀 전달) - 템프파일 아이드를 자식 재귀로 넘겨줌
+---@param tmpIndex number|nil 사용하지 마세요 (재귀 전달) - 템프파일 아이드를 자식 재귀로 넘겨줌
 local function buildItems(items,tmp,root,tmpIndex)
     futils.mkpath(tmp);
     local dat = {
@@ -134,4 +134,37 @@ local function cleanupLastBuild(root)
     fs.writeFileSync(path,"");
 end
 
-buildItems(scan("src","docs"),"build/tmp","docs");
+local last = {};
+local arg = args[2];
+if arg == "watch" then
+    local uv = require("uv");
+    for _,path in pairs({
+		"src";
+	}) do
+		local fse = uv.new_fs_event();
+		uv.fs_event_start(fse,path,{
+			recursive = true;
+		},function (err,fname,status)
+			if(err) then
+				print(err);
+			else
+                fname = fname:gsub("\\","/");
+                local time = os.clock();
+                local this = concatPath(path,fname);
+                local ltime = last[this];
+                if ltime and ltime+1 >= time then return; end
+                last[this] = time;
+
+                print("build: ",this);
+				buildItems({{
+                    ext = futils.getExt(fname);
+                    from = this;
+                    to = concatPath("docs",fname);
+                }},"build/tmp","docs");
+			end
+		end);
+	end
+    require("server");
+else
+    buildItems(scan("src","docs"),"build/tmp","docs");
+end

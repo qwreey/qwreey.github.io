@@ -35,7 +35,10 @@ http.createServer(function(req, res)
         end
         path = root .. pathName;
     end
-    io.write("request file: ",path,"\n");
+    if path:match"%.html$" then
+        io.write("load page: ",path,"\n");
+    else io.write("request file: ",path,"\n");
+    end
     fs.stat(path, function (err, stat)
         if err then
             if err.code == "ENOENT" then

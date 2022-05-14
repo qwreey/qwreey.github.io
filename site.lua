@@ -12,7 +12,7 @@ return {
 </style>
 ]];
     owner = {
-        name = "꺄비";
+        name = "쿼리";
         engname = "qwreey";
     };
     sitemap_template = [[

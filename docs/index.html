@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>꺄비월드 - <pre>LUA:UNDEFIND:'page.title'</pre></title>
+    <title>쿼리-테스트글</title>
 
     <!--import google font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
 
     <!--import main css-->
@@ -17,6 +17,16 @@
     <link rel="stylesheet" href="stylesheets/mkdocs.css">
     <link rel="stylesheet" href="stylesheets/mkdocs.extra.css">
     <link rel="stylesheet" href="stylesheets/main.css">
+    <script>
+      document.addEventListener("DOMContentLoaded", function(event) { 
+          var scrollpos = localStorage.getItem('scrollpos');
+          if (scrollpos) document.querySelector("#page .holder").scrollTo(0, scrollpos);
+      });
+
+      window.onbeforeunload = function(e) {
+          localStorage.setItem('scrollpos', document.querySelector("#page .holder").scrollTop);
+      };
+  </script>
   </head>
   <body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
     <div id="background">
@@ -24,11 +34,11 @@
       <div id="floatingMenu">
         <div id="floatingMenuSitemap" class="window">
           <div class="titlebar">
-            <p>꺄비의 웹사이트!</p>
+            <p>쿼리 - DevLog</p>
           </div>
           <div class="holder scrollY">
-            <p class="description">사이트맵!</p>
-asdfasdfsf
+            <!--<p class="description">사이트맵!</p>-->
+여긴 아직 공사중
           </div>
         </div>
         <div id="floatingMenuLinks" class="window">
@@ -47,16 +57,26 @@ asdfasdfsf
       <!--main contents-->
       <div id="page" class="window">
         <div class="titlebar">
-          <p><pre>LUA:UNDEFIND:'page.title'</pre></p>
+          <p>테스트글</p>
         </div>
         <div class="holder scrollY">
           <article class="md-content__inner md-typeset">
 
 <!--start of page contents-->
-<pre>
-  YEAHHHHHHHHHHHHHHHHHHHHHHHHH
-  IT WORKING
-</pre>
+<!--META:title:테스트글-->
+<h1 id="asdfasfd">asdfasfd<a class="headerlink" href="#asdfasfd" title="Permanent link">&para;</a></h1>
+<p><strong>asdfasdf</strong>
+<em>asdfasdfasdfasdf</em>
+<strong>asdfasdf</strong></p>
+<p>~~ABCDEFGHIJKLMNOPQRSTUVWXYZ~~<br>
+abvdefghijklmnopqrstuvwxyz<br>
+1234567890(){}[]&lt;&gt;;:?!+-#@  </p>
+<hr>
+<p>asdf
+asdf
+asdf
+asdf
+asdf</p>
 <!--end of page contents-->
 
           </article>

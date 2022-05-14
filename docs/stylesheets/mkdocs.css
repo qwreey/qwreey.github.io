@@ -50,25 +50,26 @@ input {
   outline: none;
 }
 :root {
-  --md-default-fg-color: rgba(0, 0, 0, 0.87);
-  --md-default-fg-color--light: rgba(0, 0, 0, 0.54);
-  --md-default-fg-color--lighter: rgba(0, 0, 0, 0.32);
-  --md-default-fg-color--lightest: rgba(0, 0, 0, 0.07);
-  --md-default-bg-color: #fff;
+  --md-code-font-family: 'codefont';
+  --md-default-fg-color: rgba(242, 221, 255, 0.966);
+  --md-default-fg-color--light: rgba(242, 221, 255, 0.842);
+  --md-default-fg-color--lighter: rgba(242, 221, 255, 0.658);
+  --md-default-fg-color--lightest: rgba(242, 221, 255, 0.623);
+  --md-default-bg-color: #f2ddff;
   --md-default-bg-color--light: hsla(0, 0%, 100%, 0.7);
   --md-default-bg-color--lighter: hsla(0, 0%, 100%, 0.3);
   --md-default-bg-color--lightest: hsla(0, 0%, 100%, 0.12);
-  --md-primary-fg-color: #4051b5;
-  --md-primary-fg-color--light: #5d6cc0;
-  --md-primary-fg-color--dark: #303fa1;
+  --md-primary-fg-color: #d792ff;
+  --md-primary-fg-color--light: #c45eff;
+  --md-primary-fg-color--dark: #efd3ff;
   --md-primary-bg-color: #fff;
   --md-primary-bg-color--light: hsla(0, 0%, 100%, 0.7);
-  --md-accent-fg-color: #526cfe;
+  --md-accent-fg-color: #c157ff;
   --md-accent-fg-color--transparent: rgba(82, 108, 254, 0.1);
   --md-accent-bg-color: #fff;
   --md-accent-bg-color--light: hsla(0, 0%, 100%, 0.7);
-  --md-code-fg-color: #36464e;
-  --md-code-bg-color: #f5f5f5;
+  --md-code-fg-color: #fee6ff;
+  --md-code-bg-color: #1f0f22;
   --md-code-hl-color: rgba(255, 255, 0, 0.5);
   --md-code-hl-number-color: #d52a2a;
   --md-code-hl-special-color: #db1457;
@@ -3663,7 +3664,7 @@ html .md-typeset .footnote-ref {
 }
 .highlighttable .linenos {
   background-color: var(--md-code-bg-color);
-  font-size: 0.85em;
+  font-size: 16px;
   padding: 0.7720588235em 0 0.7720588235em 1.1764705882em;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -3673,14 +3674,28 @@ html .md-typeset .footnote-ref {
 .highlighttable .linenodiv {
   box-shadow: -0.05rem 0 var(--md-default-fg-color--lightest) inset;
   padding-right: 0.5882352941em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 .highlighttable .linenodiv pre {
+  font-family: var(--md-code-font-family);
   color: var(--md-default-fg-color--light);
   text-align: right;
+  line-height: 16px;
+  font-size: 24px;
+}
+.highlighttable .linenodiv span {
+  font-family: var(--md-code-font-family);
 }
 .highlighttable .code {
   flex: 1;
   overflow: hidden;
+  font-size: 16px;
+  line-height: 16px;
+}
+.highlighttable .code span {
+  line-height: 16px;
+  font-family: var(--md-code-font-family);
 }
 .md-typeset .highlighttable {
   border-radius: 0.1rem;

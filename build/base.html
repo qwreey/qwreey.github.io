@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>{#:owner.name:#}월드 - {#:page.title:#}</title>
+    <title>{#:owner.name:#}-{#:page.title:#}</title>
 
     <!--import google font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
 
     <!--import main css-->
@@ -17,6 +17,16 @@
     <link rel="stylesheet" href="stylesheets/mkdocs.css">
     <link rel="stylesheet" href="stylesheets/mkdocs.extra.css">
     <link rel="stylesheet" href="stylesheets/main.css">
+    <script>
+      document.addEventListener("DOMContentLoaded", function(event) { 
+          var scrollpos = localStorage.getItem('scrollpos');
+          if (scrollpos) document.querySelector("#page .holder").scrollTo(0, scrollpos);
+      });
+
+      window.onbeforeunload = function(e) {
+          localStorage.setItem('scrollpos', document.querySelector("#page .holder").scrollTop);
+      };
+  </script>
   </head>
   <body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
     <div id="background">
@@ -24,10 +34,10 @@
       <div id="floatingMenu">
         <div id="floatingMenuSitemap" class="window">
           <div class="titlebar">
-            <p>{#:owner.name:#}의 웹사이트!</p>
+            <p>{#:owner.name:#} - DevLog</p>
           </div>
           <div class="holder scrollY">
-            <p class="description">사이트맵!</p>
+            <!--<p class="description">사이트맵!</p>-->
 {#:sitemap|.mapbuild():#}
           </div>
         </div>
