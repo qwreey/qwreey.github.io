@@ -59,7 +59,67 @@ electron 을 쓰겠다 했는데 이게 웹에 들어가는 html 이랑 css 그�
 이제 여기서 맨 윗줄 DOCTYPE html 저건 그냥 이 문서가 html 문서이다 하고 알려주는 부분이고 모든 html 데이터는 html 태그 안에 담기게 될것임, head 안에 담긴것 같은 경우 사이트의 이름(탭 이름에 표시될 이름), 가져올 스타일시트 파일, 사이트 설정과 같은 배치와 무관한 애들이 들어가고 body 안에 담기는 애들이 실제 우리 눈에 보이게 될 것임
 <br><br>
 대충 body 안에 쓰고싶은 글을 쓰고 파일탐색기에서 우클릭-연결프로그램-크롬 해서 열어보면 쓴 내용이 나옴
+![image](./image/studygroup/openWithChrome.png)  
 ![image](./image/studygroup/chrome.png)  
 
 이제 대충 구글에 html 이미지 넣기 이렇게만 처도 예시들이 널려있으니 태그에 관한거는 직접 살펴보길 바람  
 
+## CSS
+스타일 시트 같은 경우는 head 안에 넣는게 보편적임, 그리고 link 라는 태그를 이용해서 파일을 불러옴  
+이제 `index.css` 라는 파일 하나 index.html 만들었던 똑같은 폴더 안에 만들어 주고 index.html 을 이렇게 작성
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>title 여기에는 그냥 사이트 제목</title>
+    <!--이렇게 스타일 시트를 넣음-->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <p class="text red">1 </p>
+    <p class="text green">2 </p>
+    <p class="text blue">3 </p>
+    <p id="asdf">4</p>
+</body>
+</html>
+```
+이건 css 파일에  
+```css
+p { /* 이렇게 하면 p 태그 모두 적용 */
+    /* 스타일명 : 값; */
+    font-size: 24px; /* 이렇게 적용 할 것을 결정하고 {} 를 열어 그 안에 속성을 넣어주면 됨 */
+    height: 26px;
+}
+.text { /* 이렇게 . 을 붇이면 class 에 text 가 들어가있는 애를 선택, 그래서 1 2 3 선택됨 */
+    font-family: sans-serif;
+}
+body .text {
+    /* 이렇게 하면 body 안에 있는 text 클래스를 가진 애를 선택, 똑같이 1 2 3 선택됨 */
+}
+.text.red {
+    /* text 와 red 라는 클래스 동시에 가진 애만 선택, 1만 선택됨 */
+    color: red;
+}
+#asdf {
+    /*예 는 id 에 asdf 적힌 애 선택, 맨아래 4 만 선택됨*/
+}
+#asdf, .text {
+    /* , 을 통해서 둘다 선택할 수도 있음 (or), 1234 선택됨 */
+}
+```
+위에 처럼 css 문법은
+```css
+선택자 {
+    스타일: 값;
+}
+```
+형식으로 만들어짐, 여기서 선택자는 저 위에처럼 클래스 가진 애로 선택하는거랑 id 가진 애로 선택하는게 가능함, class 는 여러개를 가질 수 있지만 (`<p style="text title"></p>` 이런식으로 띄어쓰기로 구분) id 는 하나만 넣을 수 있음
+
+문법은 이게 다고, :not 선택자 처럼 더 세부적인 선택자도 있는데 이건 필요하면 검색하면 됨  
+<https://developer.mozilla.org/ko/docs/Web/CSS/padding> 이렇게 미리보기와 설명이 적힌 사이트 많으니까 스타일도 필요하면 찾아보는 식으로 대충 툴만 잡아보면 끝  
+![image](./image/studygroup/mdnPage.png)
+
+<del>솔찍히 필요한건 검색하면 다 나와서</del> 중간에 배치라던가 화면 절반으로 가르기나 이미지 넣기, 표 만드는 그런거도 다 검색하면 나와서 필요한거 검색 해 가며 만들 프로그램 틀만 만들고 꾸며 오면 코드 부분은 같이 짜는거로 하자  

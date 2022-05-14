@@ -3664,7 +3664,7 @@ html .md-typeset .footnote-ref {
 .highlighttable .linenos {
   background-color: var(--md-code-bg-color);
   font-size: 16px;
-  padding: 0.7720588235em 0 0.7720588235em 1.1764705882em;
+  padding: 0.7720588235em 0px 0.7720588235em 1.1764705882em;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -3673,8 +3673,6 @@ html .md-typeset .footnote-ref {
 .highlighttable .linenodiv {
   box-shadow: -0.05rem 0 var(--md-default-fg-color--lightest) inset;
   padding-right: 0.5882352941em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
 }
 .highlighttable .linenodiv pre {
   font-family: var(--md-code-font-family);

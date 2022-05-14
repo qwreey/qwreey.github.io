@@ -1,5 +1,5 @@
 /*테이블 해더 꾸미기*/
-th {
+th:not(.highlighttable th) {
   min-width: 5.8em !important; /*최소 길이*/
   color: rgb(255 255 255) !important; /*글자 색깔*/
   background-color: rgb(26 27 31) !important; /*배경 색깔*/
@@ -7,7 +7,7 @@ th {
   padding: .85em 0.8em !important; /*주변 남기는 공간 (상하 / 좌우)*/
 }
 /*테이블 아이템 꾸미기*/
-td {
+td:not(.highlighttable td) {
   background-color: rgb(47 49 60) !important; /*배경 색깔*/
   padding: .7em 0.8em !important; /*주변 남기는 공간 (상하 / 좌우)*/
 }
