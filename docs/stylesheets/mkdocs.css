@@ -50,7 +50,6 @@ input {
   outline: none;
 }
 :root {
-  --md-code-font-family: 'codefont';
   --md-default-fg-color: rgba(242, 221, 255, 0.966);
   --md-default-fg-color--light: rgba(242, 221, 255, 0.842);
   --md-default-fg-color--lighter: rgba(242, 221, 255, 0.658);

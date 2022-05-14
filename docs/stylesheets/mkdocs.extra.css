@@ -38,12 +38,14 @@ td {
 }
 
 /*테마 설정*/
-[data-md-color-scheme="custom"] {
+:root {
+  --md-code-font-family: 'codefont';
+
   /*글자 색깔*/
-  --md-default-fg-color: rgb(225, 215, 225);
-  --md-default-fg-color--light: rgb(252, 215, 215);
-  --md-default-fg-color--lighter: rgb(105, 105, 105);
-  --md-default-fg-color--lightest: rgb(70, 70, 70);
+  --md-default-fg-color: rgba(242, 221, 255, 0.966);
+  --md-default-fg-color--light: rgba(242, 221, 255, 0.842);
+  --md-default-fg-color--lighter: rgba(242, 221, 255, 0.658);
+  --md-default-fg-color--lightest: rgba(242, 221, 255, 0.623);
 
   /*배경 색깔*/
   --md-default-bg-color: rgb(41, 43, 54);
@@ -52,14 +54,14 @@ td {
   --md-default-bg-color--lightest: hsla(232, 15%, 21%, 0.07);
 
   /*하이라이팅 색깔 (탑바, 링크)*/
-  --md-primary-fg-color: hsl(14, 82%, 62%);
-  --md-primary-fg-color--light: hsl(14, 82%, 52%);
-  --md-primary-fg-color--dark :hsl(14, 82%, 72%);
+  --md-primary-fg-color: #d792ff;
+  --md-primary-fg-color--light: #c45eff;
+  --md-primary-fg-color--dark: #efd3ff;
   --md-primary-bg-color: #2e2e2e;
   --md-primary-bg-color--light: #000000;
 
   /*기타 (링크 마우스 온, 탭 컬러)*/
-  --md-accent-fg-color: #f5788c;
+  --md-accent-fg-color: #c157ff;
   --md-accent-fg-color--transparent: hsla(0, 0%, 0%, 0.1);
   --md-accent-bg-color: hsla(0, 0%, 100%, 1);
   --md-accent-bg-color--light: hsla(0, 0%, 100%, 0.7);
