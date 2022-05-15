@@ -1,4 +1,11 @@
 return {
+    cssComment = {
+        ["/%*.-%*/"] = "\n";
+    };
+    jsComment = {
+        ["//.*\n"] = "\n";
+        ["/%*.-%*/"] = "";
+    };
     rooturl = "https://qwreey75.github.io/";
     links = [[
 <div id="linkspace">
@@ -15,14 +22,34 @@ return {
         name = "쿼리";
         engname = "qwreey";
     };
-    sitemap_template = [[
-]];
+    sitemap_templates = {
+        selected = table.concat{
+            '<a herf="/{#:url:#}">';
+                '<div class="selected">';
+                    '<p class="selected">{#:title:#}</p>';
+                '</div>';
+            '</a>'
+        };
+        collapsible = table.concat{
+            '<a herf="/{#:url:#}">';
+            '<div class="collapsible">';
+            '</a>';
+        };
+        collapsible_selected = table.concat{
+
+        };
+    };
     sitemap_listed = {
-        ["2021"] = {
-            ["개발일지"] = {};
-            ["테스트"] = {
-                ["내가 누굴까"] = ""
+        {
+            name = "Home";
+            ref = "index.html";
+        };
+        {
+            name = "School";
+            {
+                name = "Studygroup";
+                ref = "studygroup/index.md";
             };
         };
     };
-}
+};

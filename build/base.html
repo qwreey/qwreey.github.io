@@ -1,66 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!--some settings-->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>{#:owner.name:#}-{#:page.title:#}</title>
+<!DOCTYPE html><html lang="en"><head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title>{#:owner.name:#}-{#:page.title:#}</title>
 
-    <!--import google font-->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
+	<!--import google font-->
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
 
-    <!--import main css-->
-    <link rel="stylesheet" href="stylesheets/mkdocs.palette.css">
-    <link rel="stylesheet" href="stylesheets/mkdocs.css">
-    <link rel="stylesheet" href="stylesheets/mkdocs.extra.css">
-    <link rel="stylesheet" href="stylesheets/main.css">
-    <script>
-      document.addEventListener("DOMContentLoaded", function(event) { 
-          var scrollpos = localStorage.getItem('scrollpos');
-          if (scrollpos) document.querySelector("#page .holder").scrollTo(0, scrollpos);
-      });
+	<!--import main css-->
+	<link rel="stylesheet" href="stylesheets/mkdocs.palette.css">
+	<link rel="stylesheet" href="stylesheets/mkdocs.css">
+	<link rel="stylesheet" href="stylesheets/mkdocs.extra.css">
+	{#:file|.read("src/stylesheets/main.css",{tag="style",removeNewline=" ",rawformat={env.cssComment}}):#}
 
-      window.onbeforeunload = function(e) {
-          localStorage.setItem('scrollpos', document.querySelector("#page .holder").scrollTop);
-      };
-  </script>
-  </head>
-  <body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
-    <div id="background">
-      <!--menu holder-->
-      <div id="floatingMenu">
-        <div id="floatingMenuSitemap" class="window">
-          <div class="titlebar">
-            <p>{#:owner.name:#} - DevLog</p>
-          </div>
-          <div class="holder scrollY">
-            <!--<p class="description">사이트맵!</p>-->
+	<!--import script-->
+	{#:file|.read("src/js/saveScroll.js",{tag="script",removeNewline=";",rawformat={env.jsComment},format={selector="#page .holder"}}):#}
+	{#:file|.read("src/js/collapsible.js",{tag="script",removeNewline=";"}):#}
+</head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+	<div id="background">
+		<!--menu holder-->
+		<div id="floatingMenu">
+			<div id="sitemap" class="window">
+				<div class="titlebar">
+					<p>{#:owner.name:#} - DevLog</p>
+				</div>
+				<div class="holder scrollY">
+<!--sitemap-->
 {#:sitemap|.mapbuild(env):#}
-          </div>
-        </div>
-        <div id="floatingMenuLinks" class="window">
+				</div>
+			</div>
+			<div id="links" class="window">
+<!--links-->
 {#:links:#}
-        </div>
-      </div>
-      <!--main contents-->
-      <div id="page" class="window">
-        <div class="titlebar">
-          <p>{#:page.title:#}</p>
-        </div>
-        <div class="holder scrollY">
-          <article class="md-content__inner md-typeset">
+			</div>
+		</div>
 
-<!--start of page contents-->
+		<!--main contents-->
+		<div id="page" class="window">
+			<div class="titlebar">
+				<p>{#:page.title:#}</p>
+			</div>
+			<div class="holder scrollY">
+				<article class="md-content__inner md-typeset">
+<!--contents-->
 {#:page.content:#}
-<!--end of page contents-->
-
-          </article>
-        </div>
-      </div>
-    </div>
-    <!--footer texts-->
-    <a id="copyright">Copyright 2021. {#:owner.engname:#}. All right of this site reserved</a>
-    <a id="bglink" href="https://www.piqsels.com/en/public-domain-photo-fradv">Sorce of background image</a>
-  </body>
-</html>
+				</article>
+			</div>
+		</div>
+	</div>
+	<!--footer texts-->
+	<a id="copyright">Copyright 2021. {#:owner.engname:#}. All right of this site reserved</a>
+	<a id="bglink" href="https://www.piqsels.com/en/public-domain-photo-fradv">Sorce of background image</a>
+</body></html>

@@ -23,7 +23,7 @@ function module.build(content,env)
     end);
     setmetatable(page,{__index = meta});
 
-    return string.gsub(base,"{#:(.-):#}",function (this)
+    return string.gsub(base,"/?/?{#:(.-):#}",function (this)
         do -- find this on env and if it exsit; return that
             local fromEnv = env;
             for str in this:gmatch("[^%.]+") do
