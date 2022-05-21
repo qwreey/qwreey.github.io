@@ -1,5 +1,4 @@
 <!DOCTYPE html><html lang="en"><head>
-	<!--some settings-->
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -9,14 +8,15 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
 
 	<!--import main css-->
-	<link rel="stylesheet" href="stylesheets/mkdocs.palette.css">
-	<link rel="stylesheet" href="stylesheets/mkdocs.css">
-	<link rel="stylesheet" href="stylesheets/mkdocs.extra.css">
-	<!-- <link rel="stylesheet" href="stylesheets/main.css"> -->
-	<style> @font-face { font-family: 'KyoboHand'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff'); font-weight: normal; font-style: normal; } @font-face { font-family: 'codefont'; src: url('./D2CodingBold.woff') format('woff'); font-weight: normal; font-style: normal; } * { font-family: "KyoboHand", sans-serif; color: #fbf5ff; font-size: 16px; } div { left: 0px; top: 0px; right: 0px; bottom: 0px; } body { background: #171717 url("../background.jpg") no-repeat center center fixed; background-size: cover; margin: 0px 0px 0px 0px; } p { margin: 0px 0px 0px 0px; } svg text { pointer-events: none; -webkit-touch-callout: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -khtml-user-select: none; -o-user-select: none; user-select: none; } .center { transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px)); top: 50%; left: 50%; } .window { backdrop-filter: blur(22px); background-color: rgba(0, 0, 0, 0.6); box-shadow: 0px 0px 28px -4px rgba(0, 0, 0, 0.9); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.13); } .titlebar {  font-size: 13px; height: 38px; width: 100%; display: flex; align-items: center; } .titlebar > p {  margin-left: 10px; font-size: 1em; font-family: "Noto Sans KR", sans-serif; color: #fff; } #background { background: radial-gradient( rgba(0, 0, 0, 0.21), rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.48) ); position: absolute; height: 100%; width: 100%; display: flex; justify-content: center;  } #bglink { position: absolute; transform: translate(-100%, -100%); top: 100%; left: 100%; height: 18px; width: 150px; opacity: 0.6; font-size: 10px; right: 2px; text-align: right; } #copyright { position: absolute; transform: translate(-0%, -100%); top: 100%; font-size: 10px; opacity: 0.6; height: 18px; width: auto; left: 2px; } #page { max-width: 620px; margin-top: 19px; width: calc(100% - 38px); height: calc(100% - 38px); } .holder {  height: calc(100% - 38px - 6px); width: auto; margin-right: 6px; overflow-y: scroll; overflow-x: hidden; } .scrollY { overflow-y: scroll; } .scrollY::-webkit-scrollbar {  background-color:transparent; width:6px; } .scrollY::-webkit-scrollbar-track {  background-color:transparent; } .scrollY::-webkit-scrollbar-track:hover { background-color:transparent; } .scrollY::-webkit-scrollbar-thumb {  background-color:#babac073; border-radius:16px; } .scrollY::-webkit-scrollbar-thumb:hover { background-color:#a0a0a58e; } .scrollY::-webkit-scrollbar-button {  display:none } #floatingMenu { margin-top: 19px; width: 200px; min-height: 320px; height: calc(50%); margin-right: 18px; } #floatingMenu #sitemap { width: 100%; height: calc(100% - 50px); } #floatingMenu #links { width: 100%; height: 42px; margin-top: 8px; } @media only screen and (max-width: 850px), (max-height: 350px) { #floatingMenu { display: none; } } </style>
+	<link rel="stylesheet" href="/stylesheets/mkdocs.palette.css">
+	<link rel="stylesheet" href="/stylesheets/mkdocs.css">
+	<link rel="stylesheet" href="/stylesheets/mkdocs.extra.css">
+	<link rel="stylesheet" href="/stylesheets/main.css">
 
+	<!--import script-->
 	<script>document.addEventListener("DOMContentLoaded", function(event) {;let scrollpos = localStorage.getItem('scrollpos'+document.location.pathname);if (scrollpos) {;document.querySelector('#page .holder').scrollTo(0, scrollpos);};});window.onbeforeunload = function(e) {;localStorage.setItem('scrollpos'+document.location.pathname, document.querySelector('#page .holder').scrollTop);};</script>
-	<script>document.querySelectorAll(".collapsible").forEach(item => {;item.addEventListener("click", function() {;item.classList.toggle("collapsed");let content = item.nextElementSibling;if (content.style.maxHeight) {;content.style.maxHeight = null;} else {;content.style.maxHeight = content.scrollHeight + "px";};});});</script>
+	<script type="text/javascript" src="/js/collapsible.js"></script>
+	<script type="text/javascript" src="/js/menu.js"></script>
 </head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
 	<div id="background">
 		<!--menu holder-->
@@ -26,16 +26,12 @@
 					<p>쿼리 - DevLog</p>
 				</div>
 				<div class="holder scrollY">
-
-<!-- sitemap -->
+<!--sitemap-->
 여긴 아직 공사중
-<!-- sitemap -->
-
 				</div>
 			</div>
 			<div id="links" class="window">
-
-<!-- links -->
+<!--links-->
 <div id="linkspace">
 <div id="linkspace_github">
 
@@ -46,19 +42,18 @@
 }
 </style>
 
-<!-- links -->
-
 			</div>
 		</div>
+
 		<!--main contents-->
 		<div id="page" class="window">
 			<div class="titlebar">
+				<img id="menuOpenButton" src="/icons/menu.svg" alt="menu" width="32px" height="32px"/>
 				<p>진짜 개발시작?</p>
 			</div>
 			<div class="holder scrollY">
 				<article class="md-content__inner md-typeset">
-
-<!--start of page contents-->
+<!--contents-->
 <!--META:title:진짜 개발시작?-->
 <h1 id="_1">이제 노가다<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>이전글은 <a href="./studygroup2022">이거임</a>  </p>
@@ -213,8 +208,6 @@
 <a href="https://developer.mozilla.org/ko/docs/Web/CSS/padding">https://developer.mozilla.org/ko/docs/Web/CSS/padding</a> 이렇게 미리보기와 설명이 적힌 사이트 많으니까 스타일도 필요하면 찾아보는 식으로 대충 툴만 잡아보면 끝<br>
 <img alt="image" src="./image/studygroup/mdnPage.png"></p>
 <p><del>솔찍히 필요한건 검색하면 다 나와서</del> 중간에 배치라던가 화면 절반으로 가르기나 이미지 넣기, 표 만드는 그런거도 다 검색하면 나와서 필요한거 검색 해 가며 만들 프로그램 틀만 만들고 꾸며 오면 코드 부분은 같이 짜는거로 하자  </p>
-<!--end of page contents-->
-
 				</article>
 			</div>
 		</div>

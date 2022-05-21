@@ -8,14 +8,15 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
 
 	<!--import main css-->
-	<link rel="stylesheet" href="stylesheets/mkdocs.palette.css">
-	<link rel="stylesheet" href="stylesheets/mkdocs.css">
-	<link rel="stylesheet" href="stylesheets/mkdocs.extra.css">
-	{#:file|.read("src/stylesheets/main.css",{tag="style",removeNewline=" ",rawformat={env.cssComment}}):#}
+	<link rel="stylesheet" href="/stylesheets/mkdocs.palette.css">
+	<link rel="stylesheet" href="/stylesheets/mkdocs.css">
+	<link rel="stylesheet" href="/stylesheets/mkdocs.extra.css">
+	<link rel="stylesheet" href="/stylesheets/main.css">
 
 	<!--import script-->
 	{#:file|.read("src/js/saveScroll.js",{tag="script",removeNewline=";",rawformat={env.jsComment},format={selector="#page .holder"}}):#}
-	{#:file|.read("src/js/collapsible.js",{tag="script",removeNewline=";"}):#}
+	<script type="text/javascript" src="/js/collapsible.js"></script>
+	<script type="text/javascript" src="/js/menu.js"></script>
 </head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
 	<div id="background">
 		<!--menu holder-->
@@ -38,6 +39,7 @@
 		<!--main contents-->
 		<div id="page" class="window">
 			<div class="titlebar">
+				<img id="menuOpenButton" src="/icons/menu.svg" alt="menu" width="32px" height="32px"/>
 				<p>{#:page.title:#}</p>
 			</div>
 			<div class="holder scrollY">

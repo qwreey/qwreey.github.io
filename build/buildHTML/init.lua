@@ -58,7 +58,8 @@ function module.build(content,env)
         end
 
         -- find module for this
-        local passed,callback = pcall(require,futils.concatPath(module.dir,this:match("^[^|]+")));
+        local thisRequirePath = this:match("^[^|]+");
+        local passed,callback = pcall(require,futils.concatPath(module.dir,thisRequirePath));
         if passed then
             local arg = this:match("^[^|]+|(.+)");
             if not arg then

@@ -23,32 +23,85 @@ return {
         engname = "qwreey";
     };
     sitemap_templates = {
-        selected = table.concat{
+        normal = table.concat({
+            '<a herf="/{#:url:#}">';
+                '<div class="notSelected">';
+                    '<p>{#:title:#}</p>';
+                '</div>';
+            '</a>';
+            '{#:next:#}';
+        },"\n");
+        selected = table.concat({
             '<a herf="/{#:url:#}">';
                 '<div class="selected">';
-                    '<p class="selected">{#:title:#}</p>';
+                    '<p>{#:title:#}</p>';
                 '</div>';
-            '</a>'
-        };
-        collapsible = table.concat{
-            '<a herf="/{#:url:#}">';
-            '<div class="collapsible">';
             '</a>';
-        };
-        collapsible_selected = table.concat{
-
-        };
+            '{#:next:#}';
+        },"\n");
+        collapsible = table.concat({
+            '<div class="collapsible collapsed">';
+                '<a herf="/{#:url:#}">';
+                    '<div class="notSelected">';
+                        '<p>{#:title:#}</p>';
+                    '</div>';
+                '</a>';
+            '</div>';
+            '<div>';
+                '{":child:"}';
+            '</div>';
+            '{#:next:#}';
+        },"\n");
+        collapsible_selected = table.concat({
+            '<div class="collapsible collapsed">';
+                '<a herf="/{#:url:#}">';
+                    '<div class="selected">';
+                        '<p>{#:title:#}</p>';
+                    '</div>';
+                '</a>';
+            '</div>';
+            '<div style="maxHeight: 0px">';
+                '{":child:"}';
+            '</div>';
+            '{#:next:#}';
+        },"\n");
+        collapsible_open = table.concat({
+            '<div class="collapsible">';
+                '<a herf="/{#:url:#}">';
+                    '<div class="notSelected">';
+                        '<p>{#:title:#}</p>';
+                    '</div>';
+                '</a>';
+            '</div>';
+            '<div>';
+                '{":child:"}';
+            '</div>';
+            '{#:next:#}';
+        },"\n");
+        collapsible_selected_open = table.concat({
+            '<div class="collapsible">';
+                '<a herf="/{#:url:#}">';
+                    '<div class="selected">';
+                        '<p>{#:title:#}</p>';
+                    '</div>';
+                '</a>';
+            '</div>';
+            '<div>';
+                '{":child:"}';
+            '</div>';
+            '{#:next:#}';
+        },"\n");
     };
-    sitemap_listed = {
+    sitemap_list = {
         {
             name = "Home";
-            ref = "index.html";
+            ref = "index";
         };
         {
             name = "School";
             {
                 name = "Studygroup";
-                ref = "studygroup/index.md";
+                ref = "studygroup/index";
             };
         };
     };
