@@ -5,14 +5,17 @@ local fs = require('fs');
 local Response = require('http').ServerResponse;
 local mimes = require('server.mimes');
 local root = "docs";
+local logger = require("logger");
 
 -- Return 404 error (file was not found)
+local notFound = fs.readFileSync("./docs/404.html");
+local notFoundLen = notFound and #notFound;
 function Response:notFound(reason)
     self:writeHead(404, {
         ["Content-Type"] = "text/plain";
-        ["Content-Length"] = #reason;
+        ["Content-Length"] = notFound and notFoundLen or #reason;
     })
-    self:write(reason);
+    self:write(notFound or reason);
 end
 
 -- Return 500 error
@@ -36,15 +39,18 @@ http.createServer(function(req, res)
         path = root .. pathName;
     end
     if path:match"%.html$" then
-        io.write("load page: ",path,"\n");
-    else io.write("request file: ",path,"\n");
+        logger.infof("load page: %s",path);
+    else logger.infof("request file: %s",path);
     end
     fs.stat(path, function (err, stat)
         if err then
-            if err.code == "ENOENT" then
-                return res:notFound(err.message .. "\n");
+            if err:match(".-:") == "ENOENT:" then
+                path = "./docs/404.html";
+                stat = fs.statSync("./docs/404.html");
+                -- return res:notFound(err.message .. "\n");
+            else
+                return res:error((err.message or tostring(err)) .. "\n");
             end
-            return res:error((err.message or tostring(err)) .. "\n");
         end
         if stat.type ~= 'file' then
             return res:notFound("Requested url is not a file\n");
@@ -59,4 +65,4 @@ http.createServer(function(req, res)
     end);
 end):listen(8080);
 
-io.write "Http static file server listening at http://localhost:8080/\n";
+logger.info("Http static file server listening at http://localhost:8080/");

@@ -1,5 +1,6 @@
 local module = {dir = (...):gsub("%.","/")};
 
+local logger = require("logger");
 local fs = require("fs");
 local base = fs.readFileSync("build/base.html");
 local futils = require("build.futils");
@@ -47,10 +48,12 @@ function module.build(content,env)
                     if passed2 then
                         return result;
                     else
+                        logger.errorf("Error occurred on file %s\nLua:An error occur on executing luascript\nerror was . . .\n%s",env.to,result);
                         return ("<pre>Lua:An error occur on executing luascript\nerror was . . .\n%s</pre>")
                             :format(result);
                     end
                 else
+                    logger.errorf("Error occurred on file %s\nLua:An error occur on parsing luascript\nerror was . . .\n%s",env.to,fn);
                     return ("<pre>Lua:An error occur on parsing luascript\nerror was . . .\n%s</pre>")
                         :format(fn);
                 end
@@ -93,6 +96,7 @@ function module.build(content,env)
         end
 
         -- if we can't find anything exist; return UNDEFIND for debugging
+        logger.errorf("Error occurred on file %s\nCouldn't find anything exist\n%s",tostring(env and env.to),tostring(callback));
         return "<pre>LUA:UNDEFIND:'" .. this .. "'</pre>";
     end);
 end

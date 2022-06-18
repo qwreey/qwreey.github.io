@@ -171,7 +171,7 @@ svg text {
 #menuOpenButton {
   display: none;
 }
-@media only screen and (max-width: 850px), (max-height: 350px) {
+@media only screen and (max-width: 1070px), (max-height: 350px) {
   #menuOpenButton {
     display: block;
   }

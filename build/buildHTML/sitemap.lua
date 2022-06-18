@@ -31,8 +31,8 @@ end
 
 function module.mapbuild(env)
     local filename = env.name:gsub(".%w+$","");
-    
-    scan(,env,filename)
+
+    -- scan(,env,filename)
     -- env.sitemap_list
     -- env.sitemap_templates
     return "여긴 아직 공사중";

@@ -4,3 +4,6 @@
 [submodule "deps/logger"]
 	path = deps/logger
 	url = https://github.com/qwreey75/logger.lua
+[submodule "deps/random"]
+	path = deps/random
+	url = https://github.com/qwreey75/random.lua

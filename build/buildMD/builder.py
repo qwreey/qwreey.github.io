@@ -87,6 +87,3 @@ def buildHtml(infile,outfile):
     for key, val in markdownInstance.Meta.items():
         this = "<!--META:" + key + ":" + str(val[0]) + "-->\n" + this
     output_file.write(this)
-
-for item in json.loads(sys.argv[1]):
-    buildHtml(item["from"],item["to"])

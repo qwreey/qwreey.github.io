@@ -7,11 +7,11 @@ local spawn = require("coro-spawn");
 local logger = require("logger");
 local promise = require("promise");
 local waitter = promise.waitter;
-
 local fs = require("fs");
 local buildMD = require("build.buildMD");
 local buildHTML = require("build.buildHTML");
 local env = require("site");
+local concat = table.concat;
 
 ---폴더 안에서 빌드할수 있는것들을 싹 찾는다
 ---@param from string 빌드하고 싶은 디렉터리 트리 (path)
@@ -47,12 +47,17 @@ local buildTypes = {
     ["md"] = function (object,builder)
         local lastFrom = object.from;
         local tindex = builder.tmpIndex;
-        local newFrom = concatPath(builder.tmp,tindex);
+        local newFrom = concat{concatPath(builder.tmp,tindex),"_",object.name};
         builder.tmpIndex = tindex + 1;
-        insert(builder.mdbuilds,{
+        local mdbuilder = builder.mdbuilder;
+        if not mdbuilder then
+            mdbuilder = buildMD.init();
+            builder.mdbuilder = mdbuilder;
+        end
+        insert(builder.waitter,buildMD.buildAsync(mdbuilder,{
             from = lastFrom;
             to = newFrom;
-        });
+        }));
         insert(builder.rebuild,{
             ext = "html";
             from = newFrom;
@@ -95,6 +100,7 @@ local buildTypes = {
     end;
 };
 local buildTypes_default = buildTypes["*"];
+
 ---받은 테이블 쌍을 빌드한다, 역시나 재귀가 사용되는 함수
 ---@param items table 재귀할 아이템이 담긴 테이블, from과 to 쌍으로 이룬다
 ---@param tmp any 빌드에 사용될 템프 폴더
@@ -104,14 +110,13 @@ local function buildItems(items,tmp,root,tmpIndex)
     local builder = {
         tmpIndex = tmpIndex or 0; -- 임시파일 번째
         tmp = tmp; -- 임시파일 루트
-        mdbuilds = {}; -- pydown 으로 빌드할 md 파일들
         rebuild = {}; -- 다시 빌드 해야 하는것
         waitter = {}; -- 기다려야하는것
         root = root; -- 출력 결과가 저장될곳
         sitemap = concatPath(root,"sitemap.json"); -- 빌드된 목록이 나열될 곳
     };
 
-    -- prebuild
+    -- 빌드
     for _,item in pairs(items) do
         local from = item.from;
         local ext = item.ext;
@@ -121,12 +126,6 @@ local function buildItems(items,tmp,root,tmpIndex)
         end
         local buildFunction = buildTypes[ext] or buildTypes_default;
         buildFunction(item,builder);
-    end
-
-    -- md 파일을 HTML 파일로 빌드함
-    local mdbuilds = builder.mdbuilds;
-    if #mdbuilds ~= 0 then
-        buildMD.build(mdbuilds);
     end
 
     -- 기다려야할 await 리스트들을 모두 기다림
@@ -143,11 +142,14 @@ local function buildItems(items,tmp,root,tmpIndex)
             end
         end
     end
-
-    -- check rebuild list
+    -- 리빌드 리스트 다시 빌드 (재귀빌드)
     local rebuild = builder.rebuild;
     if #rebuild ~= 0 then
-        buildItems(rebuild,tmp,builder.tmpIndex);
+        buildItems(rebuild,tmp,root,builder.tmpIndex);
+    end
+    local mdbuilder = builder.mdbuilder;
+    if mdbuilder then
+        mdbuilder:kill();
     end
 end
 
@@ -168,35 +170,40 @@ end
 --     fs.writeFileSync(path,"");
 -- end
 
+local watch = promise.async(function (err,file,status,path,last)
+    if(err) then
+        print(err);
+    else
+        file = file:gsub("\\","/");
+        local time = os.time() * (jit.os == "Linux" and 500 or 1);
+        local this = concatPath(path,file);
+        local ltime = last[this];
+        if ltime and ltime+1 >= time then return; end
+        last[this] = time;
+
+        logger.infof("build: %s",tostring(this));
+        buildItems({{
+            name = file;
+            ext = futils.getExt(file);
+            from = this;
+            to = concatPath("docs",file);
+        }},"build/tmp","docs");
+    end
+end);
+
 local last = {};
 local arg = args[2];
 if arg == "watch" then
     local uv = require("uv");
     for _,path in pairs({
-		"src";
+		"./src";
 	}) do
 		local fse = uv.new_fs_event();
 		uv.fs_event_start(fse,path,{
 			recursive = true;
+            watch_entry = true;
 		},function (err,file,status)
-			if(err) then
-				print(err);
-			else
-                file = file:gsub("\\","/");
-                local time = os.clock();
-                local this = concatPath(path,file);
-                local ltime = last[this];
-                if ltime and ltime+1 >= time then return; end
-                last[this] = time;
-
-                print("build: ",this);
-				buildItems({{
-                    name = file;
-                    ext = futils.getExt(file);
-                    from = this;
-                    to = concatPath("docs",file);
-                }},"build/tmp","docs");
-			end
+			watch(err,file,status,path,last);
 		end);
 	end
     require("server");
