@@ -1,14 +1,17 @@
 _G.require = require;
+package.path = package.path .. ";./?/init.lua";
 local futils = require("build.futils");
 local concatPath = futils.concatPath;
+local insert = table.insert;
+local spawn = require("coro-spawn");
+local logger = require("logger");
+local promise = require("promise");
+local waitter = promise.waitter;
 
+local fs = require("fs");
 local buildMD = require("build.buildMD");
 local buildHTML = require("build.buildHTML");
 local env = require("site");
-
-local fs = require("fs");
-local prettyPrint = require("pretty-print");
-local p = prettyPrint.prettyPrint; _G.p = p;
 
 ---폴더 안에서 빌드할수 있는것들을 싹 찾는다
 ---@param from string 빌드하고 싶은 디렉터리 트리 (path)
@@ -25,7 +28,7 @@ local function scan(from,to,path,items)
             scan(from,to,this,items); -- 자기 자신으로 재귀;
         else
             -- 빌드해야될 목록에 푸시한다
-            table.insert(items,{
+            insert(items,{
                 name = this;
                 ext = futils.getExt(this);
                 from = concatPath(from,this);
@@ -46,11 +49,11 @@ local buildTypes = {
         local tindex = builder.tmpIndex;
         local newFrom = concatPath(builder.tmp,tindex);
         builder.tmpIndex = tindex + 1;
-        table.insert(builder.mdbuilds,{
+        insert(builder.mdbuilds,{
             from = lastFrom;
             to = newFrom;
         });
-        table.insert(builder.rebuild,{
+        insert(builder.rebuild,{
             ext = "html";
             from = newFrom;
             name = object.name;
@@ -69,14 +72,29 @@ local buildTypes = {
     ["*"] = function (object,builder)
         mkfile(object.to);
         if jit.os == "Windows" then
-            os.execute(("copy %s %s > NUL"):format(object.from:gsub("/","\\"),object.to:gsub("/","\\")));
+            -- 래거시 카피
+            -- os.execute(("copy %s %s > NUL"):format(object.from:gsub("/","\\"),object.to:gsub("/","\\")));
+
+            insert(builder.waitter,
+                spawn("copy",{
+                    args = {
+                        object.from:gsub("/","\\"),
+                        object.to:gsub("/","\\")
+                    },
+                    stdio = {nil,nil,2}
+                }).waitExit
+            );
         else
-            os.execute(("cp %s %s > /dev/null"):format(object.from,object.to));
+            insert(builder.waitter,
+                spawn("cp",{
+                    args = {object.from,object.to},
+                    stdio = {nil,nil,2}
+                }).waitExit
+            );
         end
     end;
 };
 local buildTypes_default = buildTypes["*"];
-local buildTypes_html = buildTypes["html"];
 ---받은 테이블 쌍을 빌드한다, 역시나 재귀가 사용되는 함수
 ---@param items table 재귀할 아이템이 담긴 테이블, from과 to 쌍으로 이룬다
 ---@param tmp any 빌드에 사용될 템프 폴더
@@ -84,12 +102,13 @@ local buildTypes_html = buildTypes["html"];
 local function buildItems(items,tmp,root,tmpIndex)
     futils.mkpath(tmp);
     local builder = {
-        tmpIndex = tmpIndex or 0;
-        tmp = tmp; -- 탬프 루트
+        tmpIndex = tmpIndex or 0; -- 임시파일 번째
+        tmp = tmp; -- 임시파일 루트
         mdbuilds = {}; -- pydown 으로 빌드할 md 파일들
         rebuild = {}; -- 다시 빌드 해야 하는것
-        root = root;
-        sitemap = concatPath(root,"sitemap.json");
+        waitter = {}; -- 기다려야하는것
+        root = root; -- 출력 결과가 저장될곳
+        sitemap = concatPath(root,"sitemap.json"); -- 빌드된 목록이 나열될 곳
     };
 
     -- prebuild
@@ -104,11 +123,28 @@ local function buildItems(items,tmp,root,tmpIndex)
         buildFunction(item,builder);
     end
 
-    -- build md items into html
+    -- md 파일을 HTML 파일로 빌드함
     local mdbuilds = builder.mdbuilds;
     if #mdbuilds ~= 0 then
         buildMD.build(mdbuilds);
     end
+
+    -- 기다려야할 await 리스트들을 모두 기다림
+    for _,work in ipairs(builder.waitter) do
+        local typeWork = type(work);
+        if typeWork == "function" then
+            work();
+        elseif typeWork == "table" then
+            if  work.__name == waitter.__name or
+                work.__name == promise.__name then
+                work:wait();
+            else
+                work[1][work[2]](work[1]);
+            end
+        end
+    end
+
+    -- check rebuild list
     local rebuild = builder.rebuild;
     if #rebuild ~= 0 then
         buildItems(rebuild,tmp,builder.tmpIndex);
