@@ -153,6 +153,7 @@ local function buildItems(items,tmp,root,tmpIndex)
     end
 end
 
+-- src 폴더에서 사라진 파일을 다시 언빌드 해줌
 -- local function cleanupLastBuild(root)
 --     local path = concatPath(root,"sitemap.json");
 --     local raw = fs.readFileSync(path);
