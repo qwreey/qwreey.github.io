@@ -27,6 +27,21 @@ function Response:error(reason)
     self:write(reason);
 end
 
+local port = 8080;
+for _,str in pairs(args) do
+    local matching = str:match("^%-%-port=(%d*)");
+    if matching then
+        local numMatching = tonumber(matching);
+        if numMatching then
+            port = numMatching;
+            break;
+        else
+            logger.errorf("option --port was found, but got not number value! skipping port settings (setted to 8080)");
+            break;
+        end
+    end
+end
+
 http.createServer(function(req, res)
     req.uri = url.parse(req.url);
     local path do
@@ -63,6 +78,6 @@ http.createServer(function(req, res)
 
         fs.createReadStream(path):pipe(res);
     end);
-end):listen(8080);
+end):listen(port);
 
-logger.info("Http static file server listening at http://localhost:8080/");
+logger.infof("Http static file server listening at http://localhost:%d/",port);

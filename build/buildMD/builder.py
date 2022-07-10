@@ -26,8 +26,11 @@ markdownInstance = markdown.Markdown(
         'admonition', # 노트라인
         'pymdownx.details', # 더보기(확장 가능한 라벨)
         'pymdownx.progressbar', # 프로그래스 바
+        'pymdownx.snippets', # 툴팁, 스니펫 등등
         'attr_list', # ID 붙이기
         'def_list', # 기본 리스트
+        'abbr',
+        'md_in_html', # html 내부에 마크다운 넣을 수 있도록 만들어줌
 
         # 기초 설정
         'footnotes', # 바닥글
@@ -37,7 +40,7 @@ markdownInstance = markdown.Markdown(
         'pymdownx.inlinehilite', # 인라인 코드 하이라이팅
         'pymdownx.highlight', # 코드 구문강조
 
-            # 코드라인 넘버
+        # 코드라인 넘버
         'pymdownx.emoji', # 이모지 불러오기
         'pymdownx.tasklist', # 체크박스 불러오기
         'pymdownx.betterem', # 더 나은 글자 서식 알고리즘    
@@ -54,7 +57,9 @@ markdownInstance = markdown.Markdown(
             'linenums': True
         },
         'pymdownx.emoji': {
-            'emoji_generator': 'python/name:pymdownx.emoji.to_svg'
+            #'emoji_generator': 'python/name:pymdownx.emoji.to_svg'
+            #'emoji_index': "python/name:materialx.emoji.twemoji",
+            'emoji_generator': "python/name:pymdownx.emoji.to_svg"
         },
         'pymdownx.tasklist': {
             'custom_checkbox': True

@@ -175,6 +175,10 @@ local watch = promise.async(function (err,file,status,path,last)
     if(err) then
         print(err);
     else
+        -- start as . should be ignored
+        if file:sub(1,1) == "." then
+            return;
+        end
         file = file:gsub("\\","/");
         local time = os.time() * (jit.os == "Linux" and 500 or 1);
         local this = concatPath(path,file);
@@ -194,6 +198,7 @@ end);
 
 local last = {};
 local arg = args[2];
+_G.args = args;
 if arg == "watch" then
     local uv = require("uv");
     for _,path in pairs({
