@@ -9,7 +9,7 @@ function module.ogbuild(content)
 
     for index,value in pairs(content) do
         if value then
-            insert(strs,ogfotmat:format(index:gsub("_",":"),value));
+            insert(strs,ogformat:format(index:gsub("_",":"),value));
         end
     end
     

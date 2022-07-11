@@ -85,11 +85,13 @@ function module.build(content,env)
                 ));
                 local passed3,result = pcall(fn);
                 if not passed3 then
+                    logger.errorf("Error occurred on file %s\nLua:An error occur on parsing luascript\nerror was . . .\n%s",env.to,result);
                     return ("<pre>Lua:An error occur on calling module\nerror was . . .\n%s</pre>")
                         :format(result);
                 end
                 return result;
             else
+                logger.errorf("Error occurred on file %s\nError occurred on parsing module caller\nerror was . . .\n%s",env.to,fn);
                 return ("<pre>Lua:An error occur on parsing module caller\nerror was . . .\n%s</pre>")
                     :format(fn);
             end

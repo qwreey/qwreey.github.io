@@ -6,9 +6,9 @@
 
 <!--OG-->
 {#:og|.ogbuild({
-	title = env.owner.name .. " 의 웹사이트";
+	title = env.owner.name .. "의 웹사이트 - " .. (env.page.title or "");
 	type = "article";
-	url = env.rooturl .. "/" .. env.name:gsub(".%w+$","");
+	url = env.rooturl .. env.name:gsub(".%w+$","");
 	description = env.page.description;
 	image = env.page.image and env.page.image.url or nil;
 	image_width = env.page.image and env.page.image.width or nil;
