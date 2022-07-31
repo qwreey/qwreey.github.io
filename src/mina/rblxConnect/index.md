@@ -3,7 +3,7 @@ title: 미나블록스 사용설명서
 # 미나블록스 사용설명서
 <br>
 <div align=center markdown>
-    <img src="2022-07-31-09-04-39.png">
+<img src="2022-07-31-09-04-39.png">
 </div>
 
 <div align=center markdown>간단하지만 강력한. 현대적인 유저관리 방법 **Minablox**</div>
