@@ -35,6 +35,7 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
 다음 코드를 ServerScriptService 안에 넣으세요. 그 후 APIKEY 부분을 자신의 API 키로 변경해주세요. 예외 처리나 메시지 글자 변경과 같은 작업은 코드 상단의 설정 부분에서 변경할 수 있습니다<br>
 ??? 코드
     ```lua
+
     --                                        CONFIG
     ------------------------------------------------------------------------------------------
     -- 발급받은 API 키입니다
@@ -103,14 +104,19 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
     -- expection() 예외 유저 함수의 성공 여부와는 관련이 없으며
     -- 서버의 응답이 잘못된 경우, 코드 전체의 오류가 발생한 경우에
     -- 작동합니다
-    local kickWhenErrorOccurred = true;
+    local kickWhenErrorOccurred = true
 
     -- API 키가 올바른지 사전 확인합니다
-    -- 또한 HTTP 서비스가 올바르게 활성화 되었는지도 확인합니다
+    -- 또한 HTTP 서비스가 올바르게 활성화 되었는지, 업데이트가 필요한지도 확인합니다
     -- 이 값을 false 로 바꾸면 오류가 발생할 수 있습니다
     -- 필요한 경우 이 값을 바꾸지 마세요. 오류 판단이 어려워집니다
     -- (이 값이 false 이여도 API 키 없이 사용 가능한것은 아닙니다)
-    local checkAPIKEY = true;
+    local checkAPIKEY = true
+
+    -- 이 코드의 버전입니다. 바꾸지 마세요. 업데이트 가능 여부를 확인하는데 필수입니다
+    -- 공식적 코드의 버전이 올라가면 이 버전 정보를 통해 업데이트 가능 여부를 확인후
+    -- 콘솔창에 업데이트 공지를 띄워줍니다
+    local version = 21 --READONLY DON'T CHANGE THIS
     ------------------------------------------------------------------------------------------
     --
     --     이 스크립트는 ServerScriptService 에 두어야 합니다. 혹시 다른곳에 두지는 않았나요?
@@ -132,7 +138,7 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
                 ["APIKEY"] = APIKEY;
             };
             Body = body and http:JSONEncode(body);
-        };
+        }
 
         return response
     end
@@ -151,7 +157,7 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
                 end
 
                 disabled = true
-                print(("화이트리스트/블랙리스트 시스템의 키 확인에 오류가 발생했습니다.\n%s\n이것을 개발자에게 재보하십시오\n"):format(tostring(response)));
+                print(("화이트리스트/블랙리스트 시스템의 키 확인에 오류가 발생했습니다.\n%s\n이것을 개발자에게 재보하십시오\n"):format(tostring(response)))
                 return
             end
 
@@ -160,27 +166,31 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
                 disabled = true
                 print(("경고 : 화이트리스트/블랙리스트가 비활성화 되었습니다\n화이트리스트/블랙리스트 시스템에 입력된 API 키가 유효하지 않습니다. API 키를 확인하십시오\n"))
             end
+
+            if result.version ~= version then
+                print(("정보 : 화이트리스트/블랙리스트 시스템에 업데이트가 있습니다 (%d => %s)\nhttps://qwreey75.github.io/mina/rblxConnect/gettingstarted#_3\n이 링크를 따라가 스크립트를 복사한 후 다시 붇여넣으세요."):format(version,result.version))
+            end
         end)
     end
 
     local function processPlayer(player)
-        local ok,result = pcall(expection,player);
+        local ok,result = pcall(expection,player)
         if ok then
             if result then
-                player:Kick(type(result) == "string" and result or notAllowed);
-                return;
+                player:Kick(type(result) == "string" and result or notAllowed)
+                return
             elseif type(result) == "boolean" then
-                return;
+                return
             end
         else
-            print(("경고 : 화이트리스트/블랙리스트 시스템의 사용자 지정\n이용자 처리 함수에서 오류가 발생했습니다\n%s\n"):format(tostring(result)));
+            print(("경고 : 화이트리스트/블랙리스트 시스템의 사용자 지정\n이용자 처리 함수에서 오류가 발생했습니다\n%s\n"):format(tostring(result)))
         end
 
         local response = request("GET","isAllowed/"..tostring(player.UserId))
         if response.Success then
             local results = http:JSONDecode(response.Body)
             if not results.result then
-                local message;
+                local message
                 local mode = results.mode
                 if mode == "whitelist" then
                     message = notWhitelisted
@@ -215,6 +225,7 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
             end
         end
     end)
+
     ```
 
 ## 계속하기

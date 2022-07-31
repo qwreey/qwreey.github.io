@@ -5,9 +5,9 @@
 	<title>쿼리-시작하기 (API 등록법 / 설정법)</title>
 
 <!--OG-->
+	<meta property="og:title" content="쿼리의 웹사이트 - 시작하기 (API 등록법 / 설정법)">
 	<meta property="og:url" content="https://qwreey75.github.io/mina/rblxConnect/gettingstarted">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="쿼리의 웹사이트 - 시작하기 (API 등록법 / 설정법)">
 
 	<!--import google font-->
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
@@ -272,7 +272,16 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
 <span class="normal">177</span>
 <span class="normal">178</span>
 <span class="normal">179</span>
-<span class="normal">180</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">--                                        CONFIG</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">--                                        CONFIG</span>
 <span class="c1">------------------------------------------------------------------------------------------</span>
 <span class="c1">-- 발급받은 API 키입니다</span>
 <span class="c1">-- 디스코드에서 /로블록스 등록 키</span>
@@ -340,14 +349,19 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
 <span class="c1">-- expection() 예외 유저 함수의 성공 여부와는 관련이 없으며</span>
 <span class="c1">-- 서버의 응답이 잘못된 경우, 코드 전체의 오류가 발생한 경우에</span>
 <span class="c1">-- 작동합니다</span>
-<span class="kd">local</span> <span class="n">kickWhenErrorOccurred</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="kd">local</span> <span class="n">kickWhenErrorOccurred</span> <span class="o">=</span> <span class="kc">true</span>
 
 <span class="c1">-- API 키가 올바른지 사전 확인합니다</span>
-<span class="c1">-- 또한 HTTP 서비스가 올바르게 활성화 되었는지도 확인합니다</span>
+<span class="c1">-- 또한 HTTP 서비스가 올바르게 활성화 되었는지, 업데이트가 필요한지도 확인합니다</span>
 <span class="c1">-- 이 값을 false 로 바꾸면 오류가 발생할 수 있습니다</span>
 <span class="c1">-- 필요한 경우 이 값을 바꾸지 마세요. 오류 판단이 어려워집니다</span>
 <span class="c1">-- (이 값이 false 이여도 API 키 없이 사용 가능한것은 아닙니다)</span>
-<span class="kd">local</span> <span class="n">checkAPIKEY</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="kd">local</span> <span class="n">checkAPIKEY</span> <span class="o">=</span> <span class="kc">true</span>
+
+<span class="c1">-- 이 코드의 버전입니다. 바꾸지 마세요. 업데이트 가능 여부를 확인하는데 필수입니다</span>
+<span class="c1">-- 공식적 코드의 버전이 올라가면 이 버전 정보를 통해 업데이트 가능 여부를 확인후</span>
+<span class="c1">-- 콘솔창에 업데이트 공지를 띄워줍니다</span>
+<span class="kd">local</span> <span class="n">version</span> <span class="o">=</span> <span class="mi">21</span> <span class="c1">--READONLY DON&#39;T CHANGE THIS</span>
 <span class="c1">------------------------------------------------------------------------------------------</span>
 <span class="c1">--</span>
 <span class="c1">--     이 스크립트는 ServerScriptService 에 두어야 합니다. 혹시 다른곳에 두지는 않았나요?</span>
@@ -369,7 +383,7 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
             <span class="p">[</span><span class="s2">&quot;APIKEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">APIKEY</span><span class="p">;</span>
         <span class="p">};</span>
         <span class="n">Body</span> <span class="o">=</span> <span class="n">body</span> <span class="ow">and</span> <span class="n">http</span><span class="p">:</span><span class="n">JSONEncode</span><span class="p">(</span><span class="n">body</span><span class="p">);</span>
-    <span class="p">};</span>
+    <span class="p">}</span>
 
     <span class="kr">return</span> <span class="n">response</span>
 <span class="kr">end</span>
@@ -388,7 +402,7 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
             <span class="kr">end</span>
 
             <span class="n">disabled</span> <span class="o">=</span> <span class="kc">true</span>
-            <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;화이트리스트/블랙리스트 시스템의 키 확인에 오류가 발생했습니다.</span><span class="se">\n</span><span class="s2">%s</span><span class="se">\n</span><span class="s2">이것을 개발자에게 재보하십시오</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="nb">tostring</span><span class="p">(</span><span class="n">response</span><span class="p">)));</span>
+            <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;화이트리스트/블랙리스트 시스템의 키 확인에 오류가 발생했습니다.</span><span class="se">\n</span><span class="s2">%s</span><span class="se">\n</span><span class="s2">이것을 개발자에게 재보하십시오</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="nb">tostring</span><span class="p">(</span><span class="n">response</span><span class="p">)))</span>
             <span class="kr">return</span>
         <span class="kr">end</span>
 
@@ -397,27 +411,31 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
             <span class="n">disabled</span> <span class="o">=</span> <span class="kc">true</span>
             <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;경고 : 화이트리스트/블랙리스트가 비활성화 되었습니다</span><span class="se">\n</span><span class="s2">화이트리스트/블랙리스트 시스템에 입력된 API 키가 유효하지 않습니다. API 키를 확인하십시오</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
         <span class="kr">end</span>
+
+        <span class="kr">if</span> <span class="n">result</span><span class="p">.</span><span class="n">version</span> <span class="o">~=</span> <span class="n">version</span> <span class="kr">then</span>
+            <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;정보 : 화이트리스트/블랙리스트 시스템에 업데이트가 있습니다 (%d =&gt; %s)</span><span class="se">\n</span><span class="s2">https://qwreey75.github.io/mina/rblxConnect/gettingstarted#_3</span><span class="se">\n</span><span class="s2">이 링크를 따라가 스크립트를 복사한 후 다시 붇여넣으세요.&quot;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="n">version</span><span class="p">,</span><span class="n">result</span><span class="p">.</span><span class="n">version</span><span class="p">))</span>
+        <span class="kr">end</span>
     <span class="kr">end</span><span class="p">)</span>
 <span class="kr">end</span>
 
 <span class="kd">local</span> <span class="kr">function</span> <span class="nf">processPlayer</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
-    <span class="kd">local</span> <span class="n">ok</span><span class="p">,</span><span class="n">result</span> <span class="o">=</span> <span class="nb">pcall</span><span class="p">(</span><span class="n">expection</span><span class="p">,</span><span class="n">player</span><span class="p">);</span>
+    <span class="kd">local</span> <span class="n">ok</span><span class="p">,</span><span class="n">result</span> <span class="o">=</span> <span class="nb">pcall</span><span class="p">(</span><span class="n">expection</span><span class="p">,</span><span class="n">player</span><span class="p">)</span>
     <span class="kr">if</span> <span class="n">ok</span> <span class="kr">then</span>
         <span class="kr">if</span> <span class="n">result</span> <span class="kr">then</span>
-            <span class="n">player</span><span class="p">:</span><span class="n">Kick</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span> <span class="ow">and</span> <span class="n">result</span> <span class="ow">or</span> <span class="n">notAllowed</span><span class="p">);</span>
-            <span class="kr">return</span><span class="p">;</span>
+            <span class="n">player</span><span class="p">:</span><span class="n">Kick</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span> <span class="ow">and</span> <span class="n">result</span> <span class="ow">or</span> <span class="n">notAllowed</span><span class="p">)</span>
+            <span class="kr">return</span>
         <span class="kr">elseif</span> <span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;boolean&quot;</span> <span class="kr">then</span>
-            <span class="kr">return</span><span class="p">;</span>
+            <span class="kr">return</span>
         <span class="kr">end</span>
     <span class="kr">else</span>
-        <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;경고 : 화이트리스트/블랙리스트 시스템의 사용자 지정</span><span class="se">\n</span><span class="s2">이용자 처리 함수에서 오류가 발생했습니다</span><span class="se">\n</span><span class="s2">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="nb">tostring</span><span class="p">(</span><span class="n">result</span><span class="p">)));</span>
+        <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;경고 : 화이트리스트/블랙리스트 시스템의 사용자 지정</span><span class="se">\n</span><span class="s2">이용자 처리 함수에서 오류가 발생했습니다</span><span class="se">\n</span><span class="s2">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="nb">tostring</span><span class="p">(</span><span class="n">result</span><span class="p">)))</span>
     <span class="kr">end</span>
 
     <span class="kd">local</span> <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;isAllowed/&quot;</span><span class="o">..</span><span class="nb">tostring</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="n">UserId</span><span class="p">))</span>
     <span class="kr">if</span> <span class="n">response</span><span class="p">.</span><span class="n">Success</span> <span class="kr">then</span>
         <span class="kd">local</span> <span class="n">results</span> <span class="o">=</span> <span class="n">http</span><span class="p">:</span><span class="n">JSONDecode</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">Body</span><span class="p">)</span>
         <span class="kr">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">.</span><span class="n">result</span> <span class="kr">then</span>
-            <span class="kd">local</span> <span class="n">message</span><span class="p">;</span>
+            <span class="kd">local</span> <span class="n">message</span>
             <span class="kd">local</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">results</span><span class="p">.</span><span class="n">mode</span>
             <span class="kr">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;whitelist&quot;</span> <span class="kr">then</span>
                 <span class="n">message</span> <span class="o">=</span> <span class="n">notWhitelisted</span>
