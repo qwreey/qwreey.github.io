@@ -13,9 +13,14 @@ title: 미나블록스 사용설명서
 </div>
 <br>
 
+<div align=center>
+<h2 style="width: fit-content; margin: 0.6em;">디스코드에서. 게임 참가없이. 명령어 하나로 바로 유저 관리하는법</h2>
+<img src="2022-07-31-09-54-59.png">
+</div>
+
 <div style="display:flex; justify-content: center; width: 100%;" markdown>
 <div align=left markdown>
-<h2 style="width: fit-content; margin: 0.6em;">페이지 인덱스</h2>
+<h2 style="width: fit-content; margin: 0.6em;">지금 시작해볼까요?</h2>
 
 1. [시작하기 (API 등록법 / 설정법)](/mina/rblxConnect/gettingstarted) <br>
 2. [블랙리스트(밴) 사용법](/mina/rblxConnect/blacklist) <br>
