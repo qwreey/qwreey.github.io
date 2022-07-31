@@ -168,7 +168,7 @@ API 키를 발급받으셨다면. 원하는 서버에 API 키를 등록해주셔
             end
 
             if result.version ~= version then
-                print(("정보 : 화이트리스트/블랙리스트 시스템에 업데이트가 있습니다 (%d => %s)\nhttps://qwreey75.github.io/mina/rblxConnect/gettingstarted#_3\n이 링크를 따라가 스크립트를 복사한 후 다시 붇여넣으세요."):format(version,result.version))
+                print(("정보 : 화이트리스트/블랙리스트 시스템에 업데이트가 있습니다 (%d => %d)\nhttps://qwreey75.github.io/mina/rblxConnect/gettingstarted#_3\n이 링크를 따라가 스크립트를 복사한 후 다시 붇여넣으세요."):format(version,result.version))
             end
         end)
     end
