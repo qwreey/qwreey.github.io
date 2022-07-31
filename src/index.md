@@ -34,3 +34,15 @@ Watch below for more informations
     <img width=455em height=206em src="http://mazassumnida.wtf/api/v2/generate_badge?boj=qwreey75">
   </a>
 </div>
+
+<div>
+{#:owner.name:#}
+{#:owner.name:#}
+{#:lua:
+local result = ""
+for i = 1,100 do
+  result = result .. i .. " "
+end
+return result
+:#}
+</div>

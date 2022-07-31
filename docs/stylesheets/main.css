@@ -200,6 +200,10 @@ svg text {
   max-height: 0px;
 }
 
+.linenos {
+  display: none !important;
+}
+
 /*Sitemap*/
 /* #floatingMenu #sitemap .holder a div {
   

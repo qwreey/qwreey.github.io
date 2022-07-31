@@ -47,7 +47,8 @@ local buildTypes = {
     ["md"] = function (object,builder)
         local lastFrom = object.from;
         local tindex = builder.tmpIndex;
-        local newFrom = concat{concatPath(builder.tmp,tindex),"_",object.name};
+        local name = object.name:gsub("/","-");
+        local newFrom = concat{concatPath(builder.tmp,tindex),"_",name};
         builder.tmpIndex = tindex + 1;
         local mdbuilder = builder.mdbuilder;
         if not mdbuilder then

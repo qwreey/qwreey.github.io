@@ -57,12 +57,19 @@ http.createServer(function(req, res)
         logger.infof("load page: %s",path);
     else logger.infof("request file: %s",path);
     end
+
     fs.stat(path, function (err, stat)
         if err then
             if err:match(".-:") == "ENOENT:" then
-                path = "./docs/404.html";
-                stat = fs.statSync("./docs/404.html");
-                -- return res:notFound(err.message .. "\n");
+                local index = ("%s/index.html"):format(path:gsub(".html$",""));
+                local indexStatus = fs.statSync(index);
+                if indexStatus then
+                    path = index;
+                    stat = indexStatus;
+                else
+                    path = "./docs/404.html";
+                    stat = fs.statSync("./docs/404.html");
+                end
             else
                 return res:error((err.message or tostring(err)) .. "\n");
             end
