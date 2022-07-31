@@ -2,7 +2,7 @@ title: 미나블록스 사용설명서
 
 # 미나블록스 사용설명서
 <br>
-<div align=center markdown>
+<div align=center>
 <img src="2022-07-31-09-04-39.png">
 </div>
 
