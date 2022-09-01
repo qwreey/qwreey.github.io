@@ -68,7 +68,7 @@ local buildTypes = {
     end;
     ["html"] = function (object,builder)
         local this = fs.readFileSync(object.from);
-        if not this:match("<!--DO NOT BUILD-->") then
+        if not this:match("<!%-%-DO NOT BUILD%-%->") then
             -- call the html builder (custom html var)
             this = buildHTML.build(this,setmetatable(object,{__index = env}));
         end

@@ -52,7 +52,7 @@ a { /* 링크 넣으면 밑줄 넣는거 없에기 */
 
 /* 배경 이미지 */
 body {
-  background: #171717 url("picture/background.jpg") no-repeat center center fixed;
+  background: #171717 url("background.jpg") no-repeat center center fixed;
   background-size: cover;
   margin: 0px 0px 0px 0px;
   display: flex;
