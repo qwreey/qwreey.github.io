@@ -1,6 +1,6 @@
 title: 바탕화면 급식표 위젯 프로그램
 
-# 🌆️ 테마 변경 방지 프로그램
+# 🌆️ 바탕화면 급식표 위젯 프로그램
 
 <div width=100% align=center markdown>
 ![image](./image/mealswidget/mealswidget.png)
