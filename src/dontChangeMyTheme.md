@@ -8,7 +8,7 @@ title: 테마 변경 방지 프로그램
 <br>
 <br>
 프로그램 최신버전 1.0.0<br>
-[다운로드 ⬇️](https://github.com/qwreey75/DontChangeMyTheme/releases/latest/download/DontChangeMyTheme.exe "이 링크를 누르면 가장 최신 버전의 exe 파일이 받아집니다"){ .md-button }
+[⬇️ 다운로드](https://github.com/qwreey75/DontChangeMyTheme/releases/latest/download/DontChangeMyTheme.exe "이 링크를 누르면 가장 최신 버전의 exe 파일이 받아집니다"){ .md-button }
 <br>
 *서버 상태상 다운로드가*<br>
 *느리더러도 양해 부탁드립니다*
