@@ -181,7 +181,18 @@ body {
 }
 
 /* 버튼 스타일 */
+@keyframes buttonScaling {
+  0% {
+    scale: 0.6;
+    transform: translateY(16px);
+  }
+  100% {
+    scale: none;
+    transform: none;
+  }
+}
 .button {
+  animation: 0.8s ease 0s 1 buttonScaling;
   cursor: pointer;
   background-color: var(--button-color);
   padding: 6px 6px;
@@ -238,14 +249,18 @@ body {
 /* 로드 애니메이션 */
 @keyframes unbluring {
   0% {
+    scale: 0.8;
     opacity: 0;
+    transform: translateY(120px);
   }
   100% {
+    scale: none;
     opacity: none;
+    transform: none;
   }
 }
 #content {
-  animation: 0.4s linear 0s 1 unbluring;
+  animation: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0s 1 unbluring;
 }
 
 /* 메일 복사가능하게 하기 */
