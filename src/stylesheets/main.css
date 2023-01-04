@@ -221,7 +221,7 @@ svg text {
   transition: max-height 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .collapsible:not(.collapsed)>.children {
-  transition: max-height 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: max-height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .collapsible>.collapseButton::before {
   content: ' ';
