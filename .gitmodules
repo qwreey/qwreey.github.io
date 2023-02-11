@@ -19,3 +19,6 @@
 [submodule "build/buildMD/markdown"]
 	path = build/buildMD/markdown
 	url = https://github.com/Python-Markdown/markdown
+[submodule "build/buildMD/markdown_include"]
+	path = build/buildMD/markdown_include
+	url = https://github.com/cmacmackin/markdown-include
