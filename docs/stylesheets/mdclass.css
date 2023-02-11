@@ -1,0 +1,11 @@
+
+article .center {
+	width:100%;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+}
+
+article img {
+	border-radius: 12px;
+}

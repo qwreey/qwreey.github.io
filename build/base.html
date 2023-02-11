@@ -1,19 +1,20 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{#:owner.name:#}-{#:page.title:#}</title>
 
-<!--OG-->
-{#:og|.ogbuild({
-	title = env.owner.name .. "의 웹사이트 - " .. (env.page.title or "");
-	type = "article";
-	url = env.rooturl .. env.name:gsub(".%w+$","");
-	description = env.page.description;
-	image = env.page.image and env.page.image.url or nil;
-	image_width = env.page.image and env.page.image.width or nil;
-	image_height = env.page.image and env.page.image.height or nil;
-}):#}
+	<!--OG-->
+	{#:og|.ogbuild({
+		title = env.owner.name .. "의 웹사이트 - " .. (env.page.title or "");
+		type = "article";
+		url = env.rooturl .. env.name:gsub(".%w+$","");
+		description = env.page.description;
+		image = env.page.image and env.page.image.url or nil;
+		image_width = env.page.image and env.page.image.width or nil;
+		image_height = env.page.image and env.page.image.height or nil;
+	}):#}
 
 	<!--import google font-->
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
@@ -23,45 +24,154 @@
 	<link rel="stylesheet" href="/stylesheets/mkdocs.css">
 	<link rel="stylesheet" href="/stylesheets/mkdocs.extra.css">
 	<link rel="stylesheet" href="/stylesheets/main.css">
+	<link rel="stylesheet" href="/stylesheets/style.css">
+	<link rel="stylesheet" href="/stylesheets/mdclass.css">
 
 	<!--import script-->
-	{#:file|.read("src/js/saveScroll.js",{tag="script",removeNewline=";",rawformat={env.jsComment},format={selector="#page .holder"}}):#}
-	<script type="text/javascript" src="/js/collapsible.js"></script>
+	{#:file|.read("src/js/saveScroll.js",{tag="script",removeNewline=";",rawformat={env.jsComment},format={selector="#holder"}}):#}
+	{#:file|.read("src/js/collapsible.js",{tag="script",removeNewline=";",rawformat={env.jsComment}}):#}
 	<script type="text/javascript" src="/js/menu.js"></script>
-</head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
-	<div id="background">
-		<!--menu holder-->
-		<div id="floatingMenu">
-			<div id="sitemap" class="window">
-				<div class="titlebar">
-					<p>{#:owner.name:#} - DevLog</p>
-				</div>
-				<div class="holder scrollY">
-<!--sitemap-->
-{#:sitemap|.mapbuild(env):#}
-				</div>
-			</div>
-			<div id="links" class="window">
-<!--links-->
-{#:links:#}
-			</div>
-		</div>
+	<script type="text/javascript" src="/js/main.js"></script>
+</head>
 
-		<!--main contents-->
-		<div id="page" class="window">
-			<div class="titlebar">
-				<img id="menuOpenButton" src="/icons/menu.svg" alt="menu" width="32px" height="32px"/>
-				<p>{#:page.title:#}</p>
+	<!-- 바닥 팝업 -->
+	{#:lua:
+		if page.snakbar_disabled then
+			return ""
+		end
+		return ([[
+			<div id="snakbar-holder">
+				<div id="snakbar" class="window">
+					<p id="snakbar-content"></p>
+				</div>
 			</div>
-			<div class="holder scrollY">
-				<article class="md-content__inner md-typeset">
-<!--contents-->
-{#:page.content:#}
-				</article>
+		]]):gsub("\t","")
+	:#}
+
+	<!-- 호버텍스트 -->
+	{#:lua:
+		if page.hover_disabled then
+			return ""
+		end
+		return ([[
+			<div class="hover-item">
+				<p class="hover-text">
+				</p>
 			</div>
+		]]):gsub("\t","")
+	:#}
+
+	<!-- 검색 -->
+	{#:lua:
+		local insert = table.insert
+		local concat = table.concat
+
+		if env.isFirst then
+			env.searchIndexs = {}
+			env.searchIndexPromise = {}
+			-- 다른 스레드에서 서치인덱스를 빌드해보자 (???)
+			env.searchIndexBuilder = worker.new("searchIndexer",
+				---@param handler workerChildHandler
+				function(handler)
+					local searchIndexer = require"class.searchIndexer"
+					handler.onRequest(function(data)
+						return searchIndexer.makeIndex(data.content,data.path,data.title)
+					end)
+					handler.ready()
+				end
+			)
+			env.searchIndexBuilder:onRequest(function()end)
+			env.searchIndexBuilder:ready()
+		end
+		if page.enable_search then
+			insert(env.searchIndexPromise,promise.new(function ()
+				insert(env.searchIndexs,env.searchIndexBuilder:request({
+					content = page.content;
+					title = page.title;
+					path = env.name:sub(1,-#env.ext);
+				}))
+			end))
+		end
+		if env.isLast then
+			for _,buildPromise in ipairs(env.searchIndexPromise) do
+				buildPromise:await()
+			end
+			env.searchIndexBuilder:kill()
+			fs.writeFileSync(
+				"docs/indexs.json",
+				concat{'[',concat(env.searchIndexs,","),']'}
+			)
+		end
+		if page.enable_search then
+			return ([[
+				<div id="search-overlay">
+					<div id="search-window">
+						
+					</div>
+				</div>
+			]]):gsub("\t","")
+		end
+		return ""
+	:#}
+
+	<!-- 페이지 -->
+	<div id="holder">
+		<div id="placeholder"></div>
+		<!-- 프로파일 사진과 이름 -->
+		{#:lua:
+			if page.discord then
+				return ([[
+					<div id="profile">
+						<div id="profile-picture-holder">
+							<img id="profile-picture" src="" alt="User's Profile Picture">
+							<div id="profile-status" class="hover-parent">
+								<p class="hover-text">디스코드 상태 (<span id="profile-status-hovertext"></span>)</p>
+							</div>
+						</div>
+						<div id="profile-name-holder">
+							<p id="profile-name"></p>
+							<p id="profile-tag"></p>
+						</div>
+					</div>
+				]]):gsub("\t","")
+			end
+			if page.display_title or page.title then
+				return ([[
+					<div id="titlebar">
+						<p>
+							]]..(page.display_title or page.title)..[[
+						</p>
+					</div>
+				]]):gsub("\t","")
+			end
+		:#}
+		{#:lua:
+			if page.option_buttons then
+				return ([[
+					<div id="options">
+						<div id="search_button">
+
+						</div>
+						<div id="share_button">
+
+						</div>
+					</div>
+				]]):gsub("\t","")
+			end
+			return ""
+		:#}
+
+		<div id="main-frame">
+			<!-- 메인텍스트 -->
+			<article class="md-content__inner md-typeset">
+				{#:page.content:#}
+			</article>
+			<div id="bottom-placeholder"></div>
+			<a id="copyright">Copyright 2021. {#:owner.engname:#}. All right of this site reserved</a>
 		</div>
 	</div>
-	<!--footer texts-->
-	<a id="copyright">Copyright 2021. {#:owner.engname:#}. All right of this site reserved</a>
-	<!-- <a id="bglink" href="https://www.piqsels.com/en/public-domain-photo-fradv">Sorce of background image</a> -->
-</body></html>
+
+	<!-- 디밍 오버레이 -->
+	<div id="overlay"></div>
+</body>
+</html>

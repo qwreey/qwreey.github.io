@@ -1,12 +1,13 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>쿼리-바탕화면 급식표 위젯 프로그램</title>
 
-<!--OG-->
+	<!--OG-->
+		<meta property="og:type" content="article">
 	<meta property="og:title" content="쿼리의 웹사이트 - 바탕화면 급식표 위젯 프로그램">
-	<meta property="og:type" content="article">
 	<meta property="og:url" content="https://qwreey75.github.io/mealswidget">
 
 	<!--import google font-->
@@ -17,78 +18,56 @@
 	<link rel="stylesheet" href="/stylesheets/mkdocs.css">
 	<link rel="stylesheet" href="/stylesheets/mkdocs.extra.css">
 	<link rel="stylesheet" href="/stylesheets/main.css">
+	<link rel="stylesheet" href="/stylesheets/style.css">
+	<link rel="stylesheet" href="/stylesheets/mdclass.css">
 
 	<!--import script-->
-	<script>document.addEventListener("DOMContentLoaded", function(event) {;let scrollpos = localStorage.getItem('scrollpos'+document.location.pathname);if (scrollpos) {;document.querySelector('#page .holder').scrollTo(0, scrollpos);};});window.onbeforeunload = function(e) {;localStorage.setItem('scrollpos'+document.location.pathname, document.querySelector('#page .holder').scrollTop);};</script>
-	<script type="text/javascript" src="/js/collapsible.js"></script>
+	<script>document.addEventListener("DOMContentLoaded", function(event) {;let scrollpos = localStorage.getItem('scrollpos'+document.location.pathname);if (scrollpos) {;document.querySelector('#holder').scrollTo(0, scrollpos);};});window.onbeforeunload = function(e) {;localStorage.setItem('scrollpos'+document.location.pathname, document.querySelector('#holder').scrollTop);};</script>
+	<script>document.addEventListener("DOMContentLoaded", function(event) {;document.querySelectorAll(".collapsible").forEach(item => {;let child = item.querySelector(".children");let childHolder = item.querySelector(".children>.childrenHolder");let collapseButton = item.querySelector(".collapseButton");let setSize = ()=>{ child.style.maxHeight = item.classList.contains("collapsed") ? "0px" : childHolder.clientHeight + "px" };collapseButton.addEventListener("click", function() {;item.classList.toggle("collapsed");setSize();});new ResizeObserver(()=>{child.style.maxHeight="fit-content";setSize()}).observe(childHolder);setSize();});});</script>
 	<script type="text/javascript" src="/js/menu.js"></script>
-</head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
-	<div id="background">
-		<!--menu holder-->
-		<div id="floatingMenu">
-			<div id="sitemap" class="window">
-				<div class="titlebar">
-					<p>쿼리 - DevLog</p>
-				</div>
-				<div class="holder scrollY">
-<!--sitemap-->
-<div class="uncollapsible notSelected">
-<a href="/index">
-<p>홈</p>
-</a>
+	<script type="text/javascript" src="/js/main.js"></script>
+</head>
+
+	<!-- 바닥 팝업 -->
+	<div id="snakbar-holder">
+<div id="snakbar" class="window">
+<p id="snakbar-content"></p>
 </div>
-<div class="collapsible">
-<div class="collapseButton notSelected">
-<p>교내활동</p>
-</div>
-<div class="children">
-<div class="childrenHolder"><div class="uncollapsible selected">
-<a href="/mealswidget">
-<p>바탕화면 급식표 프로그램</p>
-</a>
-</div>
-<div class="uncollapsible notSelected">
-<a href="/dontChangeMyTheme">
-<p>(망함) 테마 변경 방지 프로그램</p>
-</a>
-</div>
-</div>
-</div>
-</div>
-<div class="uncollapsible notSelected">
-<a href="/deps">
-<p>라이브러리 라이선스</p>
-</a>
 </div>
 
-				</div>
-			</div>
-			<div id="links" class="window">
-<!--links-->
-<div id="linkspace">
-<div id="linkspace_github">
+
+	<!-- 호버텍스트 -->
+	<div class="hover-item">
+<p class="hover-text">
+</p>
+</div>
+
+
+	<!-- 검색 -->
+	<div id="search-overlay">
+<div id="search-window">
 
 </div>
 </div>
-<style>
-#linkspace {
-}
-</style>
 
-			</div>
-		</div>
 
-		<!--main contents-->
-		<div id="page" class="window">
-			<div class="titlebar">
-				<img id="menuOpenButton" src="/icons/menu.svg" alt="menu" width="32px" height="32px"/>
-				<p>바탕화면 급식표 위젯 프로그램</p>
-			</div>
-			<div class="holder scrollY">
-				<article class="md-content__inner md-typeset">
-<!--contents-->
+	<!-- 페이지 -->
+	<div id="holder">
+		<div id="placeholder"></div>
+		<!-- 프로파일 사진과 이름 -->
+		<div id="titlebar">
+<p>
+🌆️ 바탕화면 급식표 위젯 프로그램</p>
+</div>
+
+		
+
+		<div id="main-frame">
+			<!-- 메인텍스트 -->
+			<article class="md-content__inner md-typeset">
+				<!--META:enable_search:TRUE-->
+<!--META:display_title:🌆️ 바탕화면 급식표 위젯 프로그램-->
 <!--META:title:바탕화면 급식표 위젯 프로그램-->
-<h1 id="_1">🌆️ 바탕화면 급식표 위젯 프로그램<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <div align="center" width="100%">
 <p><img alt="image" src="./image/mealswidget/mealswidget.png">
 <br>
@@ -100,21 +79,23 @@
 <em>서버 상태상 다운로드가</em><br>
 <em>느리더러도 양해 부탁드립니다</em></p>
 </div>
-<h2 id="_2">🏁️ 이 프로그램의 목적<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_1">🏁️ 이 프로그램의 목적<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>학교에서, 학생들이 학교 컴퓨터로 궁굼한 오늘의 급식을 검색해보는 경우가 종종 있습니다. 그런데 이것은 시간이 오래 걸리고, 불편하며 모두가 볼 수 있는것이 아니였습니다
 <br>
 그래서 배경화면에 그냥 바로 급식 정보를 표시해버리면 TV 나 전자칠판에서 바로 볼 수 있기 때문에, 직접 검색하기 위해 타이핑 하고 있을 필요도 없고, 모두가 볼 수 있게 만들 수 있다고 생각해서 만들게 되었습니다</p>
-<h2 id="_3">⬇️ 설치&amp;사용 방법<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_2">⬇️ 설치&amp;사용 방법<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>단순히 이 프로그램을 설치하고, 실행하면 바탕화면에 생긴 위젯에서 '위젯 편집' 버튼을 찾을 수 있습니다<br>
 그 버튼을 누른다음, 학교 검색에서 자신의 학교를 검색하고 선택한 뒤 저장하고 사용하시면 됩니다  </p>
-<h2 id="_4">📜 라이선스<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_3">📜 라이선스<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>이 프로그램의 소스코드는 기본적으로 공개되어있습니다.<br>
 GPL 라이선스를 따르며 자유롭게 수정, 가공할 수 있으나 2차 창작물에 대해서 GPL 라이선스 적용이 강제됩니다. <strong>또한 2차 창작물에 대해서 소스코드를 공개할 것을 강제합니다. 2차 창작물에 대해서 다른 라이선스 적용 혹은 Closed Source 배포의 경우 License Violation 으로써, 법적인 책임을 질 수 있습니다</strong>, 당신은 소스코드를 편집하거나 다시 가공하는 경우 라이선스에 대해서 완전히 이해하고 있다고 가정합니다. 자세한 사항은 소스코드의 LICENCE 파일을 확인하세요  </p>
-				</article>
-			</div>
+			</article>
+			<div id="bottom-placeholder"></div>
+			<a id="copyright">Copyright 2021. qwreey. All right of this site reserved</a>
 		</div>
 	</div>
-	<!--footer texts-->
-	<a id="copyright">Copyright 2021. qwreey. All right of this site reserved</a>
-	<!-- <a id="bglink" href="https://www.piqsels.com/en/public-domain-photo-fradv">Sorce of background image</a> -->
-</body></html>
+
+	<!-- 디밍 오버레이 -->
+	<div id="overlay"></div>
+</body>
+</html>

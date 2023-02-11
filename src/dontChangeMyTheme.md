@@ -1,14 +1,14 @@
-title: 테마 변경 방지 프로그램
-
-# 🌆️ 테마 변경 방지 프로그램
+title: 🌆️ 테마 변경 방지 프로그램
+display_title: 🌆️ 테마 변경 방지 프로그램
+enable_search: TRUE
 
 <div width=100% align=center markdown>
-## 시연 영상 보기
+<span style="font-size: 1.2em;">시연 영상 보기</span><br>
 [![시연 영상 바로가기](https://img.youtube.com/vi/2awSc8ftoL8/0.jpg)](https://www.youtube.com/watch?v=2awSc8ftoL8)
 <br>
 <br>
 프로그램 최신버전 1.0.0<br>
-[⬇️ 다운로드](https://github.com/qwreey75/DontChangeMyTheme/releases/latest/download/DontChangeMyTheme.exe "이 링크를 누르면 가장 최신 버전의 exe 파일이 받아집니다"){ .md-button }
+[⬇️ 다운로드](https://github.com/qwreey75/DontChangeMyTheme/releases/latest/download/DontChangeMyTheme.exe "⬇️ 이 링크를 누르면 가장 최신 버전의 exe 파일이 받아집니다"){ .md-button }
 <br>
 *서버 상태상 다운로드가*<br>
 *느리더러도 양해 부탁드립니다*

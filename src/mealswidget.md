@@ -1,6 +1,6 @@
 title: 바탕화면 급식표 위젯 프로그램
-
-# 🌆️ 바탕화면 급식표 위젯 프로그램
+display_title: 🌆️ 바탕화면 급식표 위젯 프로그램
+enable_search: TRUE
 
 <div width=100% align=center markdown>
 ![image](./image/mealswidget/mealswidget.png)

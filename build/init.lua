@@ -11,6 +11,7 @@ local fs = require("fs");
 local buildMD = require("build.buildMD");
 local buildHTML = require("build.buildHTML");
 local env = require("site");
+local worker = require("worker");
 local concat = table.concat;
 
 ---폴더 안에서 빌드할수 있는것들을 싹 찾는다
@@ -106,24 +107,34 @@ local buildTypes_default = buildTypes["*"];
 ---@param items table 재귀할 아이템이 담긴 테이블, from과 to 쌍으로 이룬다
 ---@param tmp any 빌드에 사용될 템프 폴더
 ---@param tmpIndex number|nil 사용하지 마세요 (재귀 전달) - 템프파일 아이드를 자식 재귀로 넘겨줌
-local function buildItems(items,tmp,root,tmpIndex)
+local function buildItems(items,tmp,root,tmpIndex,builder)
     futils.mkpath(tmp);
-    local builder = {
-        tmpIndex = tmpIndex or 0; -- 임시파일 번째
+    builder = {
+        tmpIndex = builder and builder.tmpIndex or 0; -- 임시파일 번째
         tmp = tmp; -- 임시파일 루트
         rebuild = {}; -- 다시 빌드 해야 하는것
         waitter = {}; -- 기다려야하는것
         root = root; -- 출력 결과가 저장될곳
         sitemap = concatPath(root,"sitemap.json"); -- 빌드된 목록이 나열될 곳
+        doneFirst = builder and builder.doneFirst;
     };
 
     -- 빌드
-    for _,item in pairs(items) do
+    for key,item in pairs(items) do
         local from = item.from;
         local ext = item.ext;
         if not ext then
             ext = futils.getExt(from);
             item.ext = ext;
+        end
+        if ext == "html" then
+            if not builder.doneFirst then
+                builder.doneFirst = true
+                item.isFirst = true
+            end
+            if not next(builder.rebuild) and not next(items,key) then
+                item.isLast = true
+            end
         end
         local buildFunction = buildTypes[ext] or buildTypes_default;
         buildFunction(item,builder);
@@ -143,10 +154,11 @@ local function buildItems(items,tmp,root,tmpIndex)
             end
         end
     end
+
     -- 리빌드 리스트 다시 빌드 (재귀빌드)
     local rebuild = builder.rebuild;
     if #rebuild ~= 0 then
-        buildItems(rebuild,tmp,root,builder.tmpIndex);
+        buildItems(rebuild,tmp,root,builder);
     end
     local mdbuilder = builder.mdbuilder;
     if mdbuilder then
@@ -216,4 +228,5 @@ if arg == "watch" then
     require("server");
 else
     buildItems(scan("src","docs"),"build/tmp","docs");
+    os.exit()
 end

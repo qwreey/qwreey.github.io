@@ -1,12 +1,13 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>쿼리-블랙리스트(밴) 사용법</title>
 
-<!--OG-->
+	<!--OG-->
+		<meta property="og:type" content="article">
 	<meta property="og:title" content="쿼리의 웹사이트 - 블랙리스트(밴) 사용법">
-	<meta property="og:type" content="article">
 	<meta property="og:url" content="https://qwreey75.github.io/mina/rblxConnect/blacklist">
 
 	<!--import google font-->
@@ -17,77 +18,49 @@
 	<link rel="stylesheet" href="/stylesheets/mkdocs.css">
 	<link rel="stylesheet" href="/stylesheets/mkdocs.extra.css">
 	<link rel="stylesheet" href="/stylesheets/main.css">
+	<link rel="stylesheet" href="/stylesheets/style.css">
+	<link rel="stylesheet" href="/stylesheets/mdclass.css">
 
 	<!--import script-->
-	<script>document.addEventListener("DOMContentLoaded", function(event) {;let scrollpos = localStorage.getItem('scrollpos'+document.location.pathname);if (scrollpos) {;document.querySelector('#page .holder').scrollTo(0, scrollpos);};});window.onbeforeunload = function(e) {;localStorage.setItem('scrollpos'+document.location.pathname, document.querySelector('#page .holder').scrollTop);};</script>
-	<script type="text/javascript" src="/js/collapsible.js"></script>
+	<script>document.addEventListener("DOMContentLoaded", function(event) {;let scrollpos = localStorage.getItem('scrollpos'+document.location.pathname);if (scrollpos) {;document.querySelector('#holder').scrollTo(0, scrollpos);};});window.onbeforeunload = function(e) {;localStorage.setItem('scrollpos'+document.location.pathname, document.querySelector('#holder').scrollTop);};</script>
+	<script>document.addEventListener("DOMContentLoaded", function(event) {;document.querySelectorAll(".collapsible").forEach(item => {;let child = item.querySelector(".children");let childHolder = item.querySelector(".children>.childrenHolder");let collapseButton = item.querySelector(".collapseButton");let setSize = ()=>{ child.style.maxHeight = item.classList.contains("collapsed") ? "0px" : childHolder.clientHeight + "px" };collapseButton.addEventListener("click", function() {;item.classList.toggle("collapsed");setSize();});new ResizeObserver(()=>{child.style.maxHeight="fit-content";setSize()}).observe(childHolder);setSize();});});</script>
 	<script type="text/javascript" src="/js/menu.js"></script>
-</head><body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
-	<div id="background">
-		<!--menu holder-->
-		<div id="floatingMenu">
-			<div id="sitemap" class="window">
-				<div class="titlebar">
-					<p>쿼리 - DevLog</p>
-				</div>
-				<div class="holder scrollY">
-<!--sitemap-->
-<div class="uncollapsible notSelected">
-<a href="/index">
-<p>홈</p>
-</a>
+	<script type="text/javascript" src="/js/main.js"></script>
+</head>
+
+	<!-- 바닥 팝업 -->
+	<div id="snakbar-holder">
+<div id="snakbar" class="window">
+<p id="snakbar-content"></p>
 </div>
-<div class="collapsible collapsed">
-<div class="collapseButton notSelected">
-<p>교내활동</p>
-</div>
-<div class="children">
-<div class="childrenHolder"><div class="uncollapsible notSelected">
-<a href="/mealswidget">
-<p>바탕화면 급식표 프로그램</p>
-</a>
-</div>
-<div class="uncollapsible notSelected">
-<a href="/dontChangeMyTheme">
-<p>(망함) 테마 변경 방지 프로그램</p>
-</a>
-</div>
-</div>
-</div>
-</div>
-<div class="uncollapsible notSelected">
-<a href="/deps">
-<p>라이브러리 라이선스</p>
-</a>
 </div>
 
-				</div>
-			</div>
-			<div id="links" class="window">
-<!--links-->
-<div id="linkspace">
-<div id="linkspace_github">
 
+	<!-- 호버텍스트 -->
+	<div class="hover-item">
+<p class="hover-text">
+</p>
 </div>
+
+
+	<!-- 검색 -->
+	
+
+	<!-- 페이지 -->
+	<div id="holder">
+		<div id="placeholder"></div>
+		<!-- 프로파일 사진과 이름 -->
+		<div id="titlebar">
+<p>
+블랙리스트(밴) 사용법</p>
 </div>
-<style>
-#linkspace {
-}
-</style>
 
-			</div>
-		</div>
+		
 
-		<!--main contents-->
-		<div id="page" class="window">
-			<div class="titlebar">
-				<img id="menuOpenButton" src="/icons/menu.svg" alt="menu" width="32px" height="32px"/>
-				<p>블랙리스트(밴) 사용법</p>
-			</div>
-			<div class="holder scrollY">
-				<article class="md-content__inner md-typeset">
-<!--contents-->
-<!--META:title:블랙리스트(밴) 사용법-->
+		<div id="main-frame">
+			<!-- 메인텍스트 -->
+			<article class="md-content__inner md-typeset">
+				<!--META:title:블랙리스트(밴) 사용법-->
 <p><strong>이전글 <a href="/mina/rblxConnect/gettingstarted">시작하기 (API 등록법 / 설정법)</a></strong> | <strong><a href="/mina/rblxConnect">표지로 가기</a></strong></p>
 <h1 id="_1">블랙리스트(밴) 사용법<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>주의 : 블랙리스트 모드는 화이트리스트 모드와 호환되지 않습니다. 한번에 하나의 기능만 이용할 수 있습니다. 그러나 이 모드를 사용한다고 다른 모드의 목록이 사라지는것은 아닙니다. 다시 모드를 변경하면 원상복구 됩니다<br>
@@ -124,11 +97,13 @@
 </div>
 <p>옵션으로써 숫자를 주면 페이지를 특정할 수 있습니다. 옵션이 없으면 첫 페이지를 보여줍니다</p>
 <p><strong>다음글 <a href="/mina/rblxConnect/whitelist">화이트리스트 사용법</a></strong> | <strong><a href="/mina/rblxConnect">표지로 가기</a></strong></p>
-				</article>
-			</div>
+			</article>
+			<div id="bottom-placeholder"></div>
+			<a id="copyright">Copyright 2021. qwreey. All right of this site reserved</a>
 		</div>
 	</div>
-	<!--footer texts-->
-	<a id="copyright">Copyright 2021. qwreey. All right of this site reserved</a>
-	<!-- <a id="bglink" href="https://www.piqsels.com/en/public-domain-photo-fradv">Sorce of background image</a> -->
-</body></html>
+
+	<!-- 디밍 오버레이 -->
+	<div id="overlay"></div>
+</body>
+</html>

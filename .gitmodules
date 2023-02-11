@@ -7,3 +7,6 @@
 [submodule "deps/random"]
 	path = deps/random
 	url = https://github.com/qwreey75/random.lua
+[submodule "deps/myXml"]
+	path = deps/myXml
+	url = https://github.com/qwreey75/myXml.lua
