@@ -10,3 +10,12 @@
 [submodule "deps/myXml"]
 	path = deps/myXml
 	url = https://github.com/qwreey75/myXml.lua
+[submodule "build/buildMD/pygments"]
+	path = build/buildMD/pygments
+	url = https://github.com/pygments/pygments
+[submodule "build/buildMD/pymdownx"]
+	path = build/buildMD/pymdownx
+	url = https://github.com/facelessuser/pymdown-extensions
+[submodule "build/buildMD/markdown"]
+	path = build/buildMD/markdown
+	url = https://github.com/Python-Markdown/markdown
