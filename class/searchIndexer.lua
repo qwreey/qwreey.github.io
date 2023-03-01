@@ -21,14 +21,14 @@ local function scan(body,result)
         return
     end
     if body.tag and body.tag:match("^h%d+$") then
-        -- local title = {}
-        -- for _,str in ipairs(body) do
-        --     if type(str) == "string" then
-        --         insert(title,str)
-        --     end
-        -- end
-        -- title = concat(title," "):gsub(" +"," "):gsub(" +$","")
-        insert(result,{title = body.__parent[body.__pindex+1],child = {},plink="#"..body.option.id})
+        local title = {}
+        for _,str in ipairs(body) do
+            if type(str) == "string" then
+                insert(title,str)
+            end
+        end
+        title = concat(title," "):gsub(" +"," "):gsub(" +$","")
+        -- insert(result,{title = body.__parent[body.__pindex+1],child = {},plink="#"..body.option.id})
     end
     for _,child in ipairs(body) do
         scan(child,result)

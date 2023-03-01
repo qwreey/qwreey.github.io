@@ -14,18 +14,11 @@
 # first one, has 'from' index, it will be markdown file
 # the last, secound one, has 'to' index, it will be target(output) file (html)
 
-import sys
-import os
-baseName = os.path.dirname(__name__)
-sys.path.append(baseName+"/markdown")
-sys.path.append(baseName+"/pygments")
-sys.path.append(baseName+"/pymdownx")
-sys.path.append(baseName+"/markdown_include")
 import markdown
 
 def newInstance() :
     return markdown.Markdown(
-        output_format="html5",
+        output_format="xhtml",
         extensions=[
             # 컴포넌트
             'pymdownx.tabbed', # 탭
@@ -71,7 +64,7 @@ def newInstance() :
                 'custom_checkbox': True
             },
             'pymdownx.betterem': {
-                'smart_enable': 'all'       
+                'smart_enable': 'all'
             },
 
 

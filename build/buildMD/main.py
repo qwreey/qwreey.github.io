@@ -8,7 +8,11 @@
 import threading
 from processLine import processLine
 import sys
-
+baseName = sys.path[0]
+sys.path.insert(1,baseName+"/markdown")
+sys.path.insert(1,baseName+"/pygments")
+sys.path.insert(1,baseName+"/pymdownx")
+sys.path.insert(1,baseName+"/markdown_include")
 for line in sys.stdin:
 	thread = threading.Thread(target=processLine, args=(line,))
 	thread.start()
