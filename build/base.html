@@ -106,7 +106,7 @@
 			return ([[
 				<div id="search-overlay">
 					<div id="search-window">
-						
+
 					</div>
 				</div>
 			]]):gsub("\t","")
@@ -167,7 +167,9 @@
 				{#:page.content:#}
 			</article>
 			<div id="bottom-placeholder"></div>
-			<a id="copyright">Copyright {#:lua:tostring(os.date"*t".year):#}. {#:owner.engname:#}. All right of this site reserved</a>
+			<a id="copyright">Copyright {#:lua:
+				return tostring(os.date"*t".year)
+			:#}. {#:owner.engname:#}. All right of this site reserved</a>
 		</div>
 	</div>
 
