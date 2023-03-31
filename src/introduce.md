@@ -13,7 +13,7 @@ discord: true
     <div class="center">사용언어</div>
     <div class="center" style="font-size:0.8rem">Golang, ts&js, java(찍먹), python, html&css&markdown, C&C++<br>lua(정복? 지금 이 사이트도 루아기반이다), bashscript&make(언어야 이거?)</div>
     <br>
-    <div class="center">그리고...<br><span style="font-size:1.2em">언어는 javascript 와 typescript 를 가장 사랑합니다</span>nodeJS !</div>
+    <div class="center">그리고 이중에서<br><span style="font-size:1.2em">javascript 와 typescript 를 가장 사랑합니다</span>nodeJS !</div>
     <br>
     <div class="center">기술이랄까...</div>
     <div class="center" style="font-size:0.8rem">JS 라이브러리 (fastify, electron, djs, ...), vite, 어도비XD^&Figma(디자인도구)<br>git, 각종 리눅스 도구(vim..?), fontforge(폰트편집기), mongodb, docker, psql? ...</div>
@@ -28,9 +28,9 @@ discord: true
 ![KawaiiMono Font Preview](/image/introduce/kawaiiMono.png "좋은 가독성!")
 </div>
 
-거의 2달째 만들고 있는 폰트! [KawaiiMono (깃허브)](https://github.com/qwreey75/KawaiiMono) [(미러1)](https://git.pikokr.dev/Qwreey/KawaiiMono)  
+거의 2달째 만들고 있는 폰트입니다 [KawaiiMono (깃허브)](https://github.com/qwreey75/KawaiiMono) [(미러1)](https://git.pikokr.dev/Qwreey/KawaiiMono)  
 글자마다 여러사람의 눈을 거치고, 한글 글리프는 나눔스퀘어 네오라는 이쁜 폰트에서 가져왔습니다  
-아직 베타이지만 언젠간 완성할거니 많관부... 갠디하면 테스트용 ttf 파일 드려요  
+아직 베타이지만 언젠간 완성할거니 많관부...
 
 ??? note "만든 이유... 랄까"
     <br>
@@ -45,18 +45,19 @@ discord: true
 ![KawaiiMono Font Preview](/image/introduce/mina.png "뭐라는거야 아니 호감도는 또 왜저래ㅋㅋㅋ")
 </div>
 
-80 서버를 가진 [디스코드봇 미나](https://github.com/qwreey75/MINA_DiscordBot "➡ 깃허브 저장소로 이동하기"). <del>작지만 엄청나게 갈려나간</del> [한디리에서 볼 수 있습니다](https://koreanbots.dev/bots/828894481289969665)  
+90 서버를 가진 [디스코드봇 미나](https://github.com/qwreey75/MINA_DiscordBot "➡ 깃허브 저장소로 이동하기"). <del>작지만 엄청나게 갈려나간</del> [한디리에서 볼 수 있습니다](https://koreanbots.dev/bots/828894481289969665)  
 음악 기능부터 <del>버그투성이</del> 가르치기 등 여러가지 명령어가 있습니다 <del>시간이 지나며 고장난게 많지만</del>  
 <br>
 작은 호스팅에서 시작한 특성상 성능에 올인한 개발이라는 특징을 가지고 있습니다  
 가벼워서 지금 쓰는 서버에 그냥 얹어놓고 돌리는중  
+루아로 이루워진 프로젝트이며 수만줄이 넘는 코드로 인해 github 언어 통계를 박살낸 주범이기도 합니다  
 
 ??? note "더많은 정보"
     === "Trivia"
         <br>
-        높은 성능을 위해 다이나믹 언어 구현체중 가장 빠른 luajit 를 차용했고, pthread 를 이용한 멀티스레딩, libuv 를 이용한 논블럭 io 로 기본 성능을 높이고, subprocess(childprocess) 로 음악 기능에서 미디어 처리를 분산했습니다.  
-        고성능을 위해서 promise 나 mutex 같은 일반적인 라이브러리도 직접 작성했으며 2.6GHz*4 ARM 인스턴스 기준 음악 8서버에서 돌릴 때 CPU 사용율이 0.4% ~ 1% 내로 나옵니다 이전에 사용한 호스팅 (1.8GHz 였던걸로 기억) 에서도 2% 내였습니다  
-        사용된 언어는 Lua, Python, C. 지금은 개발 구조가 개판나서 더이상 개발을 유지하고 있지는 않습니다. 1448 커밋에서 멈춰있는중  
+        높은 성능을 위해 다이나믹 언어 구현체중 가장 빠른 luajit 를 차용했고, pthread 를 이용한 멀티스레딩이나 libuv 논블럭 io 를 많이 이용했습니다  
+        고성능을 위해서 promise 나 mutex 같은 일반적인 라이브러리도 직접 작성했으며 지금은 2.6GHz*4 ARM 짜리 인스턴스에 굴러가고 있습니다.
+        지금은 개발 구조가 개판나서 더이상 개발을 유지하고 있지는 않습니다. 1448 커밋에서 멈춰있는중  
         <br>다시만들기는 싫은게 자꾸 디스코드가 뭔가 추가하면서 만들꺼가 많아지더라고요. 버튼이랑 슬래시 커맨드 그리고 안정화를 하기 위해서 [라이브러리까지 다 뜯어고쳤는데](https://github.com/qwreey75/discordiaEnchant "(링크) ㅁㅣ친 라이브러리 discordia") 다시 그러고 싶지는 않음 ㅋㅋㅋㅋㅋㅋㅋ  
         제발 그냥 node js 와 ts 를 씁시다  
         <br>
@@ -75,6 +76,14 @@ discord: true
         [더많은 스레드!! worker.lua](https://github.com/qwreey75/worker.lua "(링크) 컴퓨터야 일하자")  
         [코드에도 교통정리가 필요해 mutex.lua](https://github.com/qwreey75/mutex.lua "(링크) 순서대로 일하자")  
 
+### 🌟 레딧에서의 첫 글. 5만 5천 뷰를 받은 vscode 커스터마이징 파일
+
+![Reddit 통계](/image/introduce/redditVscodeTrail '5 만 5천뷰 오옹굿')  
+
+[레딧 글 링크](https://www.reddit.com/r/vscode/comments/11e66xh/)  
+neovide 에디터의 커서 효과를 vscode 에서 가지고 싶어서 canvas 와 몇가지 js 적 해키로 가지고 놀면서 만들었는데 나름 퀄리티가 좋게 나왔다 싶어 reddit 에 올리니 5만뷰를 얻었습니다  
+그냥 내가 쓰려고 대충 만든건데 인기가 많았고 깃헙 와서 스타 눌러주는 사람도 좀 있었어서 좀 신기했는... <del>외국은 반응이 이렇게 찰지구나</del>  
+
 ### 🌟 200 스타를 넘은 무언가. quick-settings-tweaks
 
 <div class="center" markdown>
@@ -88,10 +97,15 @@ discord: true
 그런데 프로그램별 소리조정도 없고 알림이랑 음악 정보는 딴곳에 떠서 통합된 느낌도, 편리한 느낌도 없었어서 그냥 직접 추가했습니다(?이게맞음?)  
 내가 손댄적도 없는데 누가 AUR(아치리눅스 유저 레포) 에도 올려놨더라고요 ㅋㅋㅋㅋㅋ 아니 나혼자 쓸려 했던거 올린게 인기가 생길줄은 나도 몰랐음... <del>안올린 플러그인도 좀 있는데 올리면 어떻게될까요</del>  
 
+### 🔨 개인적인 커밋에 사용하는 명령어. (bashscript 기반)
+
+### 🔨 다른 기기를 리눅스의 서브 모니터로 (bashscript, tigervnc)
+
 ### 🔨 &nbsp;디스코드와 마인크래프트를 연결하자! 플러그인도 없이!
-
-
 
 ### 학교활동
 
 마크서버, 2019년 rblx 플러그인, 
+
+
+TODO : 블로그 글 쓰기
