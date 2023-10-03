@@ -63,6 +63,8 @@
 
 	<!-- 검색 -->
 	{#:lua:
+		return ""
+		--[[
 		local insert = table.insert
 		local concat = table.concat
 
@@ -102,16 +104,16 @@
 				concat{'[',concat(env.searchIndexs,","),']'}
 			)
 		end
-		if page.enable_search then
-			return ([[
-				<div id="search-overlay">
-					<div id="search-window">
+		if page.enable_search then]]
+			--return ([[
+			--	<div id="search-overlay">
+			--		<div id="search-window">
 
-					</div>
-				</div>
-			]]):gsub("\t","")
-		end
-		return ""
+			--		</div>
+			--	</div>
+			--]]):gsub("\t","")
+		--end
+		--return ""
 	:#}
 
 	<!-- 페이지 -->
