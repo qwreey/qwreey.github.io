@@ -31,7 +31,8 @@ if (date.getMonth() == 8 && date.getDate() == 2) {
 }
 
 // 나이 정해주기
-document.querySelector("#profile-ages").textContent = date.getFullYear() - 2004 + " (2005 년생)"
+// document.querySelector("#profile-ages").textContent = date.getFullYear() - 2004 + " (2005 년생)"
+document.querySelector("#profile-ages").textContent = 17 + " (2005 년생)"
 
 // 닫기 버튼...?
 document.querySelector("#titlebar-icon-1").addEventListener("click",()=>{
